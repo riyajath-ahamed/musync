@@ -5,7 +5,8 @@ import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
 
 import {FcGoogle} from 'react-icons/fc';
-import bg1 from '../Asset/bg1.mp4';
+import  bg1  from '../Asset/bg1.mp4';
+import logo1 from '../Asset/logo1.png';
 import { useEffect } from 'react';
 
 const Login = ({setAuth}) => {
@@ -64,8 +65,10 @@ const Login = ({setAuth}) => {
       <div className='absolute inset-0 bg-darkOverlay flex items-center justify-center p-4'>
         <div className='w-full md:w-375 p-4 bg-lightOverlay shadow-2xl rounded-md backdrop-blur-md flex-col items-center justify-center'>
           <div className="bg-white rounded-lg overflow-hidden mb-5 shadow-2xl">
-            <div className="group p-8 hover:bg-orange-400 hover:shadow-md duration-100 ease-in-out transition-all" >
-              <div className='font-bold group-hover:text-white'>Musync</div>
+            <div className="group p-8 hover:bg-cyan-700 hover:shadow-md duration-100 ease-in-out transition-all" >
+              <div className='font-bold group-hover:text-white'>
+                <img src={logo1} alt="logo" className='h-30 md:w-50 lg:w-30'/>
+              </div>
               
             </div>
           </div>
