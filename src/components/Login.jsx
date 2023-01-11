@@ -9,12 +9,18 @@ import  bg1  from '../Asset/bg1.mp4';
 import logo5 from '../Asset/logo6.png';
 import { useEffect } from 'react';
 
+import { useStateValue } from '../context/StateProvider';
+import { validateUser } from '../api';
+import { actionType } from '../context/reducer';
+
 const Login = ({setAuth}) => {
 
 
   const firbaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+
+  const [{user}, dispatch] = useStateValue(); 
 
   const loginWithGoogle = async() => {
     console.log('login with google')
@@ -28,12 +34,22 @@ const Login = ({setAuth}) => {
           if (userCred) {
             //console.log(userCred);
             userCred.getIdToken().then((token) =>{
-              console.log(token);
+              //console.log(token);
+              validateUser(token).then((data) =>{
+                dispatch({
+                  type: actionType.SET_USER,
+                   user: data
+                })
+              })
             })
             navigate("/", {replace : true})
           }
           else{
             setAuth(false);
+            dispatch({
+              type: actionType.SET_USER,
+               user: null
+            })
             navigate("/login")
           }
         })
@@ -95,6 +111,7 @@ const Login = ({setAuth}) => {
             </div>
             
           </div>
+          
           <div 
           onClick={loginWithGoogle} 
           className='flex items-center justify-center gap-2 px-4 py-2 mt-5 rounded-md bg-cardOverlay cursor-pointer hover:bg-card hover:shadow-md duration-100 ease-in-out transition-all'
