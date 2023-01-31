@@ -6,7 +6,7 @@ import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
 import {FcGoogle} from 'react-icons/fc';
 import  bg1  from '../Asset/bg1.mp4';
-import logo5 from '../Asset/logo6.png';
+import logo5 from '../Asset/logo62.png';
 import { useEffect } from 'react';
 
 import { useStateValue } from '../context/StateProvider';
