@@ -1,3 +1,7 @@
 export const initialState = {
-    user :null
+    user :null,
+    allUsers : null,
+    allSongs : null,
+    allArtist : null,
+    allAlbums : null,
 }
