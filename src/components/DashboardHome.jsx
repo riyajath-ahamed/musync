@@ -38,10 +38,18 @@ const DashboardHome = () => {
         dispatch({
           type: actionType.SET_ALL_USERS,
           allUsers: data.data,
-        });
-      });
+        })
+      })
       
-    };
+    }
+
+    if (!allArtists) {
+      getAllArtist().then((data) => {
+        dispatch({ type: actionType.SET_ALL_ARTISTS, artists: data.data });
+        console.log(data);
+      })
+    }
+
 
     //all songs count
     if (!allSongs) {
@@ -49,28 +57,23 @@ const DashboardHome = () => {
         // dispatch({
         //   type: actionType.SET_ALL_SONGS,
         //   allSongs: data.data,
-        // });
+        // })
         console.log(data);
-      });
-    };
+      })
+    }
 
-    if (!allArtists) {
-      getAllArtist().then((data) => {
-        // dispatch({ type: actionType.SET_ALL_ARTISTS, artists: data.data });
-        console.log(data);
-      });
-    };
-
+    
     if (!allAlbums) {
       getAllAlbums().then((data) => {
         // dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data.data });
         console.log(data);
-      });
-    };
-    // eslint-disable-next-line
+      })
+    }
 
 
-  }, [])
+  }, [
+    
+  ])
   
 
   return (

@@ -9,7 +9,7 @@ export const DashboardUserCard =({data, index}) =>{
 
   const [{user}, dispatch] = useStateValue();
 
-  const [isUser, setIsUser] = useState(second); 
+  //const [isUser, setIsUser] = useState(second); 
 
   const createdAt= moment(new Date(data.createdAt)).format("MMMM Do YYYY");
 
