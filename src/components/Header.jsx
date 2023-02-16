@@ -6,11 +6,11 @@ import emo from "../Asset/emo1.png";
 import { isActiveStyles, isNotActiveStyles } from "../utils/styles";
 
 import { useStateValue } from "../context/StateProvider";
-import { getApp } from "firebase/app";
+
 import { app } from "../config/firebase.config";
 import { getAuth } from "firebase/auth";
-import Login from "./Login";
-import {RxDashboard} from "react-icons/rx"
+
+
 
 import { motion } from "framer-motion";
 
@@ -131,7 +131,7 @@ const Header = () => {
               <div className="flex items-baseline">
               <NavLink to={"/dashboard/home"}>
             <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
-            {" "}<RxDashboard className="text-xm -ml-1"/>Dashboard 
+            Dashboard 
             </p>
             </NavLink>
             </div>

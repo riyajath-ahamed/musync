@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
 
 import moment from "moment"
-import { changingUserRole, getAllUsers } from '../api';
+import { changingUserRole, getAllUsers, removeUser } from '../api';
 
 import { actionType } from "../context/reducer";
 
@@ -35,17 +35,43 @@ export const DashboardUserCard =({data, index}) =>{
 
   }
 
+  const deleteUser = (userId) => {
+    removeUser(userId).then((res) => {
+      if(res){
+        getAllUsers().then((data) =>
+        {
+          dispatch({
+            type: actionType.SET_ALL_USERS,
+            allUsers: data.data,
+          });
+        }
+        )
+
+      }
+    })
+  }
+
+
+
   const createdAt= moment(new Date(data.createdAt)).format("MMMM Do YYYY");
 
     return(
       <motion.div key={index}
       className='relative w-full rounded-md flex items-center justify-between py-4 bg-lightOverlay cursor-pointer hover:bg-card hover:shadow-md'
-      // onClick={() =>dele}
+       
       >
-        <motion.div whileTap={{scale : 0.75}} className="absolute left-4 w-8 h-8 rounded-md flex items-center justify-center bg-gray-200">
-          <MdDelete className='text-xl text-red-500 hover:text-red-700'/>
+        {
+          data._id !== user?.user._id && (
+            <motion.div whileTap={{scale : 0.75}} className="absolute left-4 w-8 h-8 rounded-md flex items-center justify-center bg-gray-200"
+              onClick={() => deleteUser(data._id)}
+            >
+              <MdDelete className='text-xl text-red-500 hover:text-red-700'/>
 
-        </motion.div>
+            </motion.div>
+
+          )
+        }
+        
         {/* profile*/}
         <div className='w-275 min-w-[160px] flex items-center justify-center'>
           <img src={data.imageURL} referrerPolicy="no-referrer" alt="Profile" className='w-10 h-10 object-cover rounded-full min-w-[40px]'/>
