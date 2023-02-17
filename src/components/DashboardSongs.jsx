@@ -2,7 +2,9 @@ import React from 'react'
 
 const DashboardSongs = () => {
   return (
-    <div>DashboardSongs</div>
+    <div>
+      <div>Songs</div>
+    </div>
   )
 }
 
