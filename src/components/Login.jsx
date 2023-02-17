@@ -23,7 +23,7 @@ const Login = ({setAuth}) => {
   const [{user}, dispatch] = useStateValue(); 
 
   const loginWithGoogle = async() => {
-    console.log('login with google')
+    //console.log('login with google')
 
     await signInWithPopup(firbaseAuth, provider).then((userCred) => {
       //console.log(userCred);
