@@ -39,7 +39,7 @@ const reducer = (state, action) => {
         case actionType.SET_ALL_ARTISTS:
             return {
                 ...state,
-                allArtist: action.allArtist,
+                allArtists: action.allArtists,
             };
 
         default:

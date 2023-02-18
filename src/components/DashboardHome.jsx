@@ -45,8 +45,10 @@ const DashboardHome = () => {
 
     if (!allArtists) {
       getAllArtist().then((data) => {
-        dispatch({ type: actionType.SET_ALL_ARTISTS, artists: data.data });
-        console.log(data);
+        dispatch({ 
+          type: actionType.SET_ALL_ARTISTS, 
+          allArtists: data.data });
+        
       })
     }
 
@@ -54,19 +56,21 @@ const DashboardHome = () => {
     //all songs count
     if (!allSongs) {
       getAllSongs().then((data) => {
-        // dispatch({
-        //   type: actionType.SET_ALL_SONGS,
-        //   allSongs: data.data,
-        // })
-        console.log(data);
+        dispatch({
+          type: actionType.SET_ALL_SONGS,
+          allSongs: data.data
+        })
+        
       })
     }
 
     
     if (!allAlbums) {
       getAllAlbums().then((data) => {
-        // dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data.data });
-        console.log(data);
+        dispatch({ 
+          type: actionType.SET_ALL_ALBUMS,
+          allAlbums: data.data });
+        
       })
     }
 
