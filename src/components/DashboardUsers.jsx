@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStateValue } from "../context/StateProvider";
 import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
@@ -14,6 +14,9 @@ export const DashboardUserCard =({data, index}) =>{
   const [{user, allUsers}, dispatch] = useStateValue();
 
   const [isUserRoleUpdated, setIsUserRoleUpdated] = useState(false); 
+
+  
+  
 
   const updateUserRole = (userId, role)=>{
 
@@ -54,6 +57,8 @@ export const DashboardUserCard =({data, index}) =>{
 
 
   const createdAt= moment(new Date(data.createdAt)).format("MMMM Do YYYY");
+
+  
 
     return(
       <motion.div key={index}
@@ -134,6 +139,20 @@ const DashboardUsers = () => {
 
   const [{allUsers}, dispatch] = useStateValue();
 
+  useEffect(() => {
+    if (!allUsers) {
+      getAllUsers().then((data)=>{
+        dispatch({
+          type: actionType.SET_ALL_USERS,
+          allUsers: data.data,
+        })
+        
+      })
+      
+      
+    } 
+  }, [])
+
   
   return (
     <div className='w-full p-4 flex items-center justify-center flex-col'>
@@ -144,7 +163,7 @@ const DashboardUsers = () => {
       <div className='relative w-full py-12 min-h-[400px] overflow-x-scroll my-4 flex flex-col items-center justify-start p-4 border
        border-gray-300 rounded-md gap-3'>
         {/* total user count*/}
-        <div className='absolute top-4 left-4'>
+        <div className='absolute top-4 left-4 border border-orange-300 bg-white px-1 rounded-md shadow-md'>
           <p className='text-sm font-semibold'>
             Count :<span className='text-xl font-bold text-textColor'>{allUsers?.length}</span>
           </p>

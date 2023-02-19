@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useCallback, useEffect, useRef, useState} from 'react'
 import { getAllUsers, getAllSongs,getAllArtist, getAllAlbums } from '../api';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
@@ -8,6 +8,7 @@ import { FaUsers } from "react-icons/fa";
 import { GiLoveSong, GiMusicalNotes } from "react-icons/gi";
 import { RiUserStarFill } from "react-icons/ri"
 import { bgColors, cardColor } from '../utils/styles';
+import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom';
 
 
 export const DashboardCard = ({icon, name, count}) => {
@@ -20,16 +21,27 @@ export const DashboardCard = ({icon, name, count}) => {
     
     className= {bg_color}>
       {icon}
-      <p className='text-xl text-white font-semibold'>{name}</p>
+      <p className='text-xl text-white font-semibold '>{name}</p>
       <p className='text-xl text-white '>{count}</p>
     </div>
   )
 
 };
 
+const sdk = new ChartsEmbedSDK({
+  baseUrl: 'https://charts.mongodb.com/charts-project-0-uoxvc',
+});
+
+// embed a chart
+const chart = sdk.createChart({
+chartId: '63f0dee2-ad08-4c02-8bd6-243a65de512d',
+});
+ 
 const DashboardHome = () => {
 
   const [{allUsers,allSongs,allArtists,allAlbums }, dispatch] = useStateValue();
+
+  
 
   useEffect(() => {
     //All user count
@@ -87,6 +99,7 @@ const DashboardHome = () => {
         <DashboardCard icon={<GiLoveSong className="text-3xl text-white" />} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
         <DashboardCard icon={<RiUserStarFill className="text-3xl text-white" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
         <DashboardCard icon={<GiMusicalNotes className="text-3xl text-white" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
+      
       
 
     </div>
