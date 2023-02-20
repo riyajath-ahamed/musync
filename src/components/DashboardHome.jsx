@@ -35,7 +35,19 @@ const sdk = new ChartsEmbedSDK({
 // embed a chart
 const chart = sdk.createChart({
 chartId: '63f0dee2-ad08-4c02-8bd6-243a65de512d',
+autoRefresh : true,
+
+
 });
+
+const wordchart = sdk.createChart({
+  chartId: '63f30435-3f54-4215-8be1-affaab72407a',
+  autoRefresh : true,
+  
+  
+  });
+
+
  
 const DashboardHome = () => {
 
@@ -86,6 +98,14 @@ const DashboardHome = () => {
       })
     }
 
+    chart
+    .render(document.getElementById('chart'))
+    .catch(() => window.alert('Chart failed to initialise'));
+
+    wordchart
+    .render(document.getElementById('wchart'))
+    .catch(() => window.alert('Chart failed to initialise'));
+
 
   }, [
     
@@ -93,16 +113,23 @@ const DashboardHome = () => {
   
 
   return (
+    <div>
     <div className='w-full p-6 flex items-center justify-evenly flex-wrap'>
       
         <DashboardCard icon={<FaUsers className="text-3xl text-white" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0}/>
         <DashboardCard icon={<GiLoveSong className="text-3xl text-white" />} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
         <DashboardCard icon={<RiUserStarFill className="text-3xl text-white" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
         <DashboardCard icon={<GiMusicalNotes className="text-3xl text-white" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
-      
-      
 
     </div>
+
+    {/* charts */}
+    <div className='w-full bg-white items-center p-3 rounded-md flex flex-wrap justify-evenly'>
+    <div id='chart' style={{ width: 300, height: 300}} className="rounded-lg shadow-md hover:shadow-orange-500"></div>
+    <div id='wchart' style={{ width: 300, height: 300}} className="rounded-lg shadow-md hover:shadow-orange-500"></div>
+    </div>
+    </div>
+
   )
 }
 
