@@ -9,7 +9,7 @@ const premium = () => {
 	<h1 class="text-9xl font-extrabold text-white tracking-widest">UNDER DEVLOPMENT</h1>
 	<div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute text-white">
 		<p className='font-bold'>Page Not Found</p>
-    <p className='font-bold'>තාම හඩනවා !!</p>
+    <p className='font-bold'>තාම හදනවා !!</p>
 	</div>
 	
 </main>
