@@ -4,4 +4,13 @@ export const initialState = {
     allSongs : null,
     allArtists : null,
     allAlbums : null,
+    filterTerm: "all",
+    artistFilter: null,
+    genreFilter: null,
+    matrixpointFilter: null,
+    albumFilter: null,
+    
+
+
+
 }

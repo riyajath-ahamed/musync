@@ -1,4 +1,5 @@
 module.exports = {
+  
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -60,5 +61,9 @@ module.exports = {
       },
     },
   },
- //plugins: [require("tailwind-scrollbar")],
+  
+  //plugins: [require("tailwind-scrollbar")],
+
+
+ 
 };
