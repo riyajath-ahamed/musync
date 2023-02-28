@@ -98,6 +98,8 @@ const DashboardHome = () => {
       })
     }
 
+    // if statment for the chart refewashing issue
+
     chart
     .render(document.getElementById('chart'))
     .catch(() => window.alert('Chart failed to initialise'));

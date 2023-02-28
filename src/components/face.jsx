@@ -5,7 +5,14 @@ const face = () => {
   return (
     <div className='w-full h-auto flex flex-col items-center justify-center bg-primary'> 
     <Header/>
-    <div class="h-screen w-full flex items-center justify-center gap-5 bg-gray-900">
+    <div className='w-full bg-gray-900 justify-center'>
+
+    <p className='place-content-center text-white font-semibold text-lg justify-center p-4 bg-gray-900'>Set Your Mood</p>
+    </div>
+    <div class="h-full w-full grid grid-cols-5 justify-items-center gap-4 p-2 bg-gray-900">
+        
+
+
     <a class="hover:bg-gray-700 delay-50 duration-100 bg-gray-800 p-5 rounded-lg w-60 group" href="">
     <img src="https://i.pinimg.com/originals/1c/71/b0/1c71b07b0d58199581cad8e646e607f5.gif" class="w-full rounded shadow" />
     

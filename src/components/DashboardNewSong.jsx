@@ -25,6 +25,7 @@ import {
 import { actionType} from "../context/reducer";
 import FilterButton from "./FilterButton";
 import { filterByLanguage, filters } from "../utils/supportfunctions";
+import FileUploader from "./FileUploader";
 
 // import AlertSuccess from "./AlertSuccess";
 // import AlertError from "./AlertError";
@@ -32,6 +33,9 @@ import { filterByLanguage, filters } from "../utils/supportfunctions";
 const DashboardNewSong = () => {
 
 const [songName, setSongName] = useState("");
+
+const [songImageCover, setsongImageCover] = useState(null);
+const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
 const [isImageLoading, setIsImageLoading] = useState(false);
 
@@ -60,6 +64,21 @@ useEffect(() => {
 
 }, [])
 
+ const deleteFileObject = (url, isImage) => {
+  if(isImage){
+    setIsImageLoading(true)
+    
+    }
+    const deleteRef = ref(storage, url);
+    deleteObject(deleteRef).then(() => {
+      setsongImageCover(null)
+      setIsImageLoading(false)
+      
+    })
+
+
+}
+
 
   return (
     <div className='flex flex-col items-center justify-center p-4 border-2 gap-4 border-orange-200 rounded-md'>
@@ -79,10 +98,29 @@ useEffect(() => {
         </div>
 
         <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
-          {isImageLoading  && <FileLoader progress={10.367}/>}
-          {/* {!isImageLoading && {
-            
-          }} */}
+          {isImageLoading  && <FileLoader progress={imageUploadProgress}/>}
+          {!isImageLoading && (
+            <>
+            {!songImageCover ? (
+              <FileUploader 
+                updateState={setsongImageCover} 
+                setProgress={setImageUploadProgress} 
+                isloading={setIsImageLoading}
+                isImage= {true}
+              />
+            ) : (
+              <div className="relative w-full h-full overflow-hidden rounded-md   ">
+                <img src={songImageCover} className="h-full object-cover" alt="cover" />
+
+                <button type="button" className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none border-none hover:bg-red-700 hover:shadow-md duration-200 transition-all ease-in-out"
+                onClick={() => deleteFileObject(songImageCover, true)}
+                >
+                  <MdDelete className="text-white"/>
+                </button>
+              </div>
+            )}
+            </>
+          )}
 
 
         </div>
