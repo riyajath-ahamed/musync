@@ -11,6 +11,8 @@ const FileUploader = ({updateState, setProgress, isloading, isImage }) => {
 
         const uploadedfile = e.target.files[0];
 
+        console.log(uploadedfile);
+
         const storageRef = ref(storage, `${isImage ? "coverImage" : "songs"}/${Date.now()}-${uploadedfile.name}`);
 
         const uploadTask = uploadBytesResumable(storageRef, uploadedfile);
