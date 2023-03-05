@@ -47,6 +47,22 @@ const [audioImageCover, setAudioImageCover] = useState(null);
 const [audioUploadingProgress, setAudioUploadingProgress] = useState(0);
 const [isAudioLoading, setIsAudioLoading] = useState(false);
 
+//artist save states
+const [artistImageCover, setArtistImageCover] = useState(null);
+const [artistUploadingProgress, setArtistUploadingProgress] = useState(0);
+const [isArtistUploading, setIsArtistUploading] = useState(false)
+
+const [artistName, setArtistName] = useState("");
+const [instagram, setInstagram] = useState("");
+
+
+//Album save states
+const [albumImageCover, setAlbumImageCover] = useState(null);
+const [albumUploadingProgress, setAlbumUploadingProgress] = useState(0);
+const [isAlbumUploading, setIsAlbumUploading] = useState(false);
+
+const [albumName, setAlbumName] = useState("");
+
 
 
 const[{allArtists, allAlbums, artistFilter, albumFilter, filterTerm , allSongs,  genreFilter, matrixpointFilter}, dispath] = useStateValue();
@@ -81,15 +97,27 @@ useEffect(() => {
   if(isImage){
     setIsImageLoading(true)
     setIsAudioLoading(true)
+    setIsArtistUploading(true)
+    setIsAlbumUploading(true)
     
     }
+
+
+    // repeating the delete functionfor every image and song
+
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
       setsongImageCover(null);
       setAudioImageCover(null);
+      setArtistImageCover(null);
+      setAlbumImageCover(null);
+
+      
 
       setIsImageLoading(false);
       setIsAudioLoading(false);
+      setIsArtistUploading(false);
+      setIsAlbumUploading(false);
       
     })
 
@@ -145,6 +173,74 @@ const saveSong = () => {
 
 };
 
+const saveArtist =() =>{
+   if(!artistImageCover || !artistName || !instagram){
+     //alert
+   }else{
+    setIsArtistUploading(true);
+    const data = {
+      name: artistName,
+      imageURL: artistImageCover,
+      instagram: `https://www.instagram.com/${instagram}`,
+    }
+
+    saveNewArtist(data).then((res) => {
+      getAllArtist().then((data) => {
+        dispath({ 
+          type: actionType.SET_ALL_ARTISTS, 
+          allArtists: data.data });
+        
+      })
+        
+      }
+    )
+
+    
+    setIsArtistUploading(false);
+    setArtistImageCover(null);
+    setArtistName("");
+    setInstagram("");
+
+
+
+   }
+
+};
+
+const saveAlbum = () => {
+
+  if(!albumImageCover || !albumName){
+    //alert
+  }else{
+    // saveNewAlbum
+    setIsAlbumUploading(true);
+    const data ={
+    name: albumName,
+    imageURL: albumImageCover,
+    }
+
+    saveNewAlbum(data) .then(() => {
+
+      getAllAlbums().then((data) => {
+        dispath({ 
+          type: actionType.SET_ALL_ALBUMS,
+          allAlbums: data.data });
+        
+      })
+
+    })
+
+
+    setIsAlbumUploading(false);
+    setAlbumImageCover(null);
+    setAlbumName(""); 
+
+
+
+  }
+
+};
+
 
   return (
     <div className='flex flex-col items-center justify-center p-4 border-2 gap-4 border-orange-200 rounded-md'>
@@ -162,6 +258,8 @@ const saveSong = () => {
             {/* range scale for matrix point */}
             <FilterButton filterData={filterByLanguage} flag={"Matrix point"}/>
         </div>
+
+        {/* song Image Uploading */}
 
         <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
           {isImageLoading  && <FileLoader progress={imageUploadProgress}/>}
@@ -239,6 +337,144 @@ const saveSong = () => {
 
 
         </div>
+
+        {/* Image uploader for artist */}
+
+        <p className="text-xl font-semibold text-headingColor">Artist Details</p>
+        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+          {isArtistUploading  && <FileLoader progress={artistUploadingProgress}/>}
+          {!isArtistUploading && (
+            <>
+            {!artistImageCover ? (
+              <FileUploader 
+                updateState={setArtistImageCover} 
+                setProgress={setArtistUploadingProgress} 
+                isloading={setIsArtistUploading}
+                isImage= {true}
+              />
+            ) : (
+              <div className="relative w-full h-full  overflow-hidden rounded-md   ">
+                <img src={artistImageCover} className="h-full object-cover" alt="cover" />
+
+                <button type="button" className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none border-none hover:bg-red-700 hover:shadow-md duration-200 transition-all ease-in-out"
+                onClick={() => deleteFileObject(artistImageCover, true)}
+                >
+                  <MdDelete className="text-white"/>
+                </button>
+              </div>
+            )}
+            </>
+          )}
+
+
+        </div>
+
+        {/* Artist Name input */}
+        <input 
+        type="text" 
+        placeholder="Enter the Artist Name..." 
+        className=" w-full p-3 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
+        value={artistName}
+        onChange={(e) => setArtistName(e.target.value)}
+        />
+
+        {/* Artist Instagram */}
+
+        <div className="flex w-full bg-white items-center rounded-md text-textColor p-3 outline-orange-400 border-gray-300 ">
+              
+              <p className="text-base font-semibold text-gray-400">www.instagram.com/</p>
+              <input type="text"  placeholder="your instagram ID" 
+              className="w-full text-base font-semibold text-textColor outline-none bg bg-transparent shadow-sm border-none"
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+
+              />
+
+
+        </div>
+
+        <div className="flex items-center justify-center w-60 cursor-pointer p-4">
+
+          {
+            isArtistUploading ? (
+              <DisabledButton/>
+            ) :(
+              <motion.button whileTap={{scale : 0.75}} className="px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg"
+              onClick={saveArtist}
+              >
+                Save Artist
+              </motion.button>
+              
+            )
+          }
+
+
+        </div>
+
+        {/* Album details */}
+
+        {/* Album Image uploader */}
+        <p className="text-xl font-semibold text-headingColor">Album Details</p>
+        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+          {isAlbumUploading  && <FileLoader progress={albumUploadingProgress}/>}
+          {!isAlbumUploading && (
+            <>
+            {!albumImageCover ? (
+              <FileUploader 
+                updateState={setAlbumImageCover} 
+                setProgress={setAlbumUploadingProgress} 
+                isloading={setIsAlbumUploading}
+                isImage= {true}
+              />
+            ) : (
+              <div className="relative w-full h-full  overflow-hidden rounded-md   ">
+                <img src={albumImageCover} className="h-full object-cover" alt="cover" />
+
+                {/* classify in to album art and album cover */}
+
+                <button type="button" className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none border-none hover:bg-red-700 hover:shadow-md duration-200 transition-all ease-in-out"
+                onClick={() => deleteFileObject(albumImageCover, true)}
+                >
+                  <MdDelete className="text-white"/>
+                </button>
+              </div>
+            )}
+            </>
+          )}
+
+
+        </div>
+
+        {/* Album Name */}
+        <input 
+        type="text" 
+        placeholder="Enter the Album Name..." 
+        className=" w-full p-3 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
+        value={albumName}
+        onChange={(e) => setAlbumName(e.target.value)}
+        />
+
+        <div className="flex items-center justify-center w-60 cursor-pointer p-4">
+
+        {
+          isArtistUploading ? (
+            <DisabledButton/>
+          ) :(
+            <motion.button whileTap={{scale : 0.75}} className="px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg"
+            onClick={saveAlbum}
+            >
+              Save Album
+            </motion.button>
+    
+          )
+        }
+
+
+</div>
+
+  
+
+
 
     </div>
   )

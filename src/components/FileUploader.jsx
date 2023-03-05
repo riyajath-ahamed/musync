@@ -40,7 +40,7 @@ const FileUploader = ({updateState, setProgress, isloading, isImage }) => {
                 <p className='font-bold text-2xl'>
                     <BiCloudUpload/>
                 </p>
-                <p className='text-lg'>Click To Upload {isImage ? "the Song Cover Image": "the audio"}</p>
+                <p className='text-lg'>Click To Upload {isImage ? "an Image": "the audio"}</p>
             </div>
 
         </div> 
