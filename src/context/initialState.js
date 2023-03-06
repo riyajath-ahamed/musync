@@ -9,6 +9,7 @@ export const initialState = {
     genreFilter: null,
     matrixpointFilter: null,
     albumFilter: null,
+    alertType: null,
     
 
 

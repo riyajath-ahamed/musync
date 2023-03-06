@@ -10,6 +10,8 @@ export const actionType = {
     SET_GENRE_FILTER : "SET_GENRE_FILTER",
     SET_MATRIXPOINT_FILTER : "SET_MATRIXPOINT_FILTER",
     SET_ALBUM_FILTER : "SET_ALBUM_FILTER",
+
+    SET_ALERT_TYPE : "SET_ALERT_TYPE",
 }
 
 const reducer = (state, action) => {
@@ -77,6 +79,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 albumFilter: action.albumFilter,
+            };
+
+            case actionType.SET_ALERT_TYPE:
+            return {
+                ...state,
+                alertType: action.alertType,
             };
         
 

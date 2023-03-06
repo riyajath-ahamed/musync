@@ -65,7 +65,18 @@ const [albumName, setAlbumName] = useState("");
 
 
 
-const[{allArtists, allAlbums, artistFilter, albumFilter, filterTerm , allSongs,  genreFilter, matrixpointFilter}, dispath] = useStateValue();
+const[
+  {
+    allArtists, 
+    allAlbums, 
+    artistFilter, 
+    albumFilter, 
+    
+     allSongs,  
+     genreFilter, 
+     matrixpointFilter, 
+     alertType
+    }, dispath] = useStateValue();
 
 useEffect(() => {
     if(!allArtists){
@@ -99,6 +110,19 @@ useEffect(() => {
     setIsAudioLoading(true)
     setIsArtistUploading(true)
     setIsAlbumUploading(true)
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "Success" 
+    });
+
+    // setInterval(() => {
+
+    //   dispath({ 
+    //   type: actionType.SET_ALERT_TYPE, 
+    //   alertType: null
+    // });
+      
+    // }, 4000);
     
     }
 
@@ -107,6 +131,21 @@ useEffect(() => {
 
     const deleteRef = ref(storage, url);
     deleteObject(deleteRef).then(() => {
+
+      dispath({ 
+        type: actionType.SET_ALERT_TYPE, 
+        alertType: "warning" 
+      }); 
+
+      // setInterval(() => {
+
+      //   dispath({ 
+      //   type: actionType.SET_ALERT_TYPE, 
+      //   alertType: null
+      // });
+        
+      // }, 4000);
+
       setsongImageCover(null);
       setAudioImageCover(null);
       setArtistImageCover(null);
@@ -129,6 +168,19 @@ const saveSong = () => {
 
   if(!songImageCover || !audioImageCover){
     //alert
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "error" 
+    }); 
+
+    // setInterval(() => {
+
+    //   dispath({ 
+    //   type: actionType.SET_ALERT_TYPE, 
+    //   alertType: null
+    // });
+      
+    // }, 4000);
   }else {
     //save to database
     setIsAudioLoading(true);
@@ -157,6 +209,21 @@ const saveSong = () => {
       }
     )
 
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "success" 
+    }); 
+
+    // setInterval(() => {
+
+    //   dispath({ 
+    //   type: actionType.SET_ALERT_TYPE, 
+    //   alertType: null
+    // });
+      
+    // }, 4000);
+
+
       setSongName(null)
       setIsAudioLoading(false);
       setIsImageLoading(false);
@@ -175,6 +242,8 @@ const saveSong = () => {
 
 const saveArtist =() =>{
    if(!artistImageCover || !artistName || !instagram){
+
+
      //alert
    }else{
     setIsArtistUploading(true);
