@@ -115,14 +115,14 @@ useEffect(() => {
       alertType: "Success" 
     });
 
-    // setInterval(() => {
+    setInterval(() => {
 
-    //   dispath({ 
-    //   type: actionType.SET_ALERT_TYPE, 
-    //   alertType: null
-    // });
+      dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: null
+    });
       
-    // }, 4000);
+    }, 4000);
     
     }
 
@@ -137,14 +137,14 @@ useEffect(() => {
         alertType: "warning" 
       }); 
 
-      // setInterval(() => {
+      setInterval(() => {
 
-      //   dispath({ 
-      //   type: actionType.SET_ALERT_TYPE, 
-      //   alertType: null
-      // });
+        dispath({ 
+        type: actionType.SET_ALERT_TYPE, 
+        alertType: null
+      });
         
-      // }, 4000);
+      }, 4000);
 
       setsongImageCover(null);
       setAudioImageCover(null);
