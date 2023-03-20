@@ -64,7 +64,7 @@ const Header = () => {
               isActive ? isActiveStyles : isNotActiveStyles
             }
           >
-            <img src={emo} alt="logo" className="w-20" />
+            <img src={emo} alt="logo" className="w-20"  />
           </NavLink>
         </li>
         <li className="mx-5 text-lg">
@@ -97,7 +97,7 @@ const Header = () => {
         <img
           src={user?.user?.imageURL}
           className="w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg"
-          alt="userlog0"
+          alt="userlogo"
           referrerPolicy="no-referrer"
         />
         <div className="flex flex-col">

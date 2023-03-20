@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import {
-  getStorage,
+ 
   ref,
-  getDownloadURL,
-  uploadBytesResumable,
+ 
   deleteObject,
 } from "firebase/storage";
 import { motion } from "framer-motion";
@@ -115,14 +114,14 @@ useEffect(() => {
       alertType: "Success" 
     });
 
-    setInterval(() => {
+    // setInterval(() => {
 
-      dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: null
-    });
+    //   dispath({ 
+    //   type: actionType.SET_ALERT_TYPE, 
+    //   alertType: null
+    // });
       
-    }, 4000);
+    // }, 4000);
 
     // set time out()
     
@@ -139,14 +138,14 @@ useEffect(() => {
         alertType: "warning" 
       }); 
 
-      setInterval(() => {
+      // setInterval(() => {
 
-        dispath({ 
-        type: actionType.SET_ALERT_TYPE, 
-        alertType: null
-      });
+      //   dispath({ 
+      //   type: actionType.SET_ALERT_TYPE, 
+      //   alertType: null
+      // });
         
-      }, 4000);
+      // }, 4000);
 
       setsongImageCover(null);
       setAudioImageCover(null);
