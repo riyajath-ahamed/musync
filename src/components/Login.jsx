@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { app } from "../config/firebase.config";
 import {getAuth, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useStateValue } from '../context/StateProvider';
 import { validateUser } from '../api';
 import { actionType } from '../context/reducer';
+import Signup from './Signup';
 
 const Login = ({setAuth}) => {
 
@@ -79,19 +80,23 @@ const Login = ({setAuth}) => {
         className="w-full h-full object-cover"
       ></video>
       <div className='absolute inset-0 bg-darkOverlay flex items-center justify-center p-4'>
-        <div className='w-full md:w-375 p-4 bg-lightOverlay shadow-2xl rounded-md backdrop-blur-md flex-col items-center justify-center'>
-          <div className="bg-white rounded-lg overflow-hidden mb-5 shadow-2xl">
-            <div className="group p-8 hover:bg-cyan-600 hover:shadow-md duration-100 ease-in-out transition-all" >
-              <div className='font-bold'>
-                <img src={logo5} alt="logo" className='hover:scale-110 transition duration-300 ease-in-out h-30 md:w-50 lg:w-30 '/>
-              </div>
-              
-            </div>
+        <div className='w-full h-auto md:w-375 px-3 py-4 bg-lightOverlay shadow-2xl rounded-lg backdrop-blur-md flex-col items-center justify-center'>
+
+
+          {/* Logo */}
+
+          <div className="bg-white rounded-lg overflow-hidden mb-5 p-5 flex justify-center items-center  shadow-2xl">
+                <img src={logo5} alt="logo" className='h-20 md:w-25 lg:w-30 '/>
+ 
           </div>
+
+
           <div>
-            <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-                <div className="p-8">
-                <label for="email" className="block mb-2 text-2xl font-medium text-black">Login</label>
+            <div className="bg-white rounded-lg overflow-hidden shadow-2xl px-8 p-5">
+                
+                <label for="email" className="block mb-2 text-2xl font-semibold bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent">Login</label>
+
+
                     <form method="POST" className="" action="#" onsubmit="return false;">
                         <div className="mb-5">
                             <label for="email" className="block mb-2 text-sm font-medium text-gray-600">Email</label>
@@ -103,10 +108,12 @@ const Login = ({setAuth}) => {
                         </div>
                         <button className="w-full p-3 mt-4 bg-indigo-600 text-white rounded shadow">Login</button>
                     </form>
-                </div>
-                <div className="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
-                    <a className="font-medium text-indigo-500">Create account</a>
-                    <a className="text-gray-600">Forgot password?</a>
+                
+                <div className="flex flex-col justify-center items-center p-4 gap-2 text-base border-t border-gray-300 bg-white">
+                  <hr/>
+                    
+                    {/* <p className="text-gray-600">Forgot password?</p> */}
+                    <p className="font-medium text-white w-full text-center cursor-pointer bg-indigo-300 p-2 rounded-lg "><NavLink to={"/signup"}>Create account</NavLink></p>
                 </div>
             </div>
             

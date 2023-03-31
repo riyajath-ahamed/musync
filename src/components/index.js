@@ -3,6 +3,9 @@ export {default as Home} from './Home';
 export {default as Header} from './Header';
 export {default as Premium} from './premium';
 export {default as Face} from './face';
+export {default as AboutUs} from './aboutUs';
+
+export {default as Signup} from './Signup';
 
 
 //dashboard components
