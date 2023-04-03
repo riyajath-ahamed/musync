@@ -345,7 +345,8 @@ const saveAlbum = () => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center p-4 border-2 gap-4 border-orange-200 rounded-md'>
+    <div className="flex flex-row items-start justify-center w-full h-full gap-1">
+    <div className='flex flex-col items-center justify-center w-2/3 h-full p-4 border-2 gap-4 border-orange-200 rounded-md'>
         <input 
         type="text" 
         placeholder="Enter Your Song Name..." 
@@ -363,7 +364,7 @@ const saveAlbum = () => {
 
         {/* song Image Uploading */}
 
-        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+        <div className="bg-card backdrop-blur-md w-full h-225 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
           {isImageLoading  && <FileLoader progress={imageUploadProgress}/>}
           {!isImageLoading && (
             <>
@@ -393,7 +394,7 @@ const saveAlbum = () => {
 
 
         {/* Audio file upload */}
-        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+        <div className="bg-card backdrop-blur-md w-full h-225 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
           {isAudioLoading  && <FileLoader progress={audioUploadingProgress}/>}
           {!isAudioLoading && (
             <>
@@ -439,11 +440,17 @@ const saveAlbum = () => {
 
 
         </div>
+        <p className="text-base font-semibold text-textColor">
+          *Note: Please upload song cover image and song file before saving song.
+        </p>
+
+        </div>
 
         {/* Image uploader for artist */}
+        <div className='flex flex-col items-center justify-center w-1/3 h-full p-4 border-2 gap-4 border-orange-200 rounded-md'>
 
         <p className="text-xl font-semibold text-headingColor">Artist Details</p>
-        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+        <div className="bg-card backdrop-blur-md w-full h-150 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
           {isArtistUploading  && <FileLoader progress={artistUploadingProgress}/>}
           {!isArtistUploading && (
             <>
@@ -475,18 +482,18 @@ const saveAlbum = () => {
         <input 
         type="text" 
         placeholder="Enter the Artist Name..." 
-        className=" w-full p-3 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
+        className=" w-full p-2 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
         value={artistName}
         onChange={(e) => setArtistName(e.target.value)}
         />
 
         {/* Artist Instagram */}
 
-        <div className="flex w-full bg-white items-center rounded-md text-textColor p-3 outline-orange-400 border-gray-300 ">
+        <div className="flex w-full bg-white items-center rounded-md text-textColor p-2 outline-orange-400 border-gray-300 ">
               
               <p className="text-base font-semibold text-gray-400">www.instagram.com/</p>
               <input type="text"  placeholder="your instagram ID" 
-              className="w-full text-base font-semibold text-textColor outline-none bg bg-transparent shadow-sm border-none"
+              className="w-full text-base font-semibold text-textColor outline-none bg bg-transparent border-none"
               value={instagram}
               onChange={(e) => setInstagram(e.target.value)}
 
@@ -495,13 +502,13 @@ const saveAlbum = () => {
 
         </div>
 
-        <div className="flex items-center justify-center w-60 cursor-pointer p-4">
+        <div className="flex items-center justify-center w-60 cursor-pointer p-3">
 
           {
             isArtistUploading ? (
               <DisabledButton/>
             ) :(
-              <motion.button whileTap={{scale : 0.75}} className="px-8 py-2 rounded-md text-white bg-red-600 hover:shadow-lg"
+              <motion.button whileTap={{scale : 0.75}} className="px-8 pb-2 pt-1 rounded-md text-white bg-red-600 hover:shadow-lg"
               onClick={saveArtist}
               >
                 Save Artist
@@ -517,7 +524,7 @@ const saveAlbum = () => {
 
         {/* Album Image uploader */}
         <p className="text-xl font-semibold text-headingColor">Album Details</p>
-        <div className="bg-card backdrop-blur-md w-full h-300 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
+        <div className="bg-card backdrop-blur-md w-full h-150 rounded-md border-2 border-dotted border-amber-500 cursor-pointer">
           {isAlbumUploading  && <FileLoader progress={albumUploadingProgress}/>}
           {!isAlbumUploading && (
             <>
@@ -551,7 +558,7 @@ const saveAlbum = () => {
         <input 
         type="text" 
         placeholder="Enter the Album Name..." 
-        className=" w-full p-3 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
+        className=" w-full p-2 rounded-md text-base font-semibold text-textColor outline-orange-400 shadow-sm border-gray-300 "
         value={albumName}
         onChange={(e) => setAlbumName(e.target.value)}
         />
@@ -573,11 +580,13 @@ const saveAlbum = () => {
 
 
 </div>
+</div>
 
   
 
 
 
+    
     </div>
   )
 };
