@@ -6,7 +6,7 @@ const aboutus = () => {
     <div className='w-full h-auto flex flex-col items-center justify-center bg-primary'>
       <Header/>
 
-      <section class="bg-primary dark:bg-gray-900">
+      {/* <section class="bg-primary dark:bg-gray-900">
             <div class="w-full px-6 py-10 mx-auto">
                 <div class="lg:flex lg:items-center">
                     <div class="w-full space-y-12 lg:w-1/2 ">
@@ -81,7 +81,7 @@ const aboutus = () => {
                    
                 </div>
             </div>
-        </section>
+        </section> */}
 
     </div>
   )

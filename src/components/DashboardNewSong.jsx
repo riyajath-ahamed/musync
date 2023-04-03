@@ -124,6 +124,14 @@ useEffect(() => {
     // }, 4000);
 
     // set time out()
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
     
     }
 
@@ -180,8 +188,22 @@ const saveSong = () => {
     //   type: actionType.SET_ALERT_TYPE, 
     //   alertType: null
     // });
-      
     // }, 4000);
+
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
+
+
+
+
+
+
   }else {
     //save to database
     setIsAudioLoading(true);
@@ -223,6 +245,16 @@ const saveSong = () => {
     // });
       
     // }, 4000);
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
+
+
 
 
       setSongName(null)
