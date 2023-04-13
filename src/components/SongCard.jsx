@@ -15,10 +15,14 @@ const SongCard = ({data, index}) => {
       </div>
       <p className='text-base text-headingColor font-semibold my-2 '>
       {data.name.length > 25 ? `${data.name.slice(0, 25)}..` : `${data.name}`}
-      <span className='block text-sm text-gray-400 my-1'>
+      {data.artist &&(
+        <span className='block text-sm text-gray-400 my-1'>
       
         {data.artist.length > 25 ? `${data.artist.slice(0, 25)}...` : `${data.artist}`}
         </span>
+
+      ) }
+      
       </p>
 
       {/* can replace with a option dropdown usinfg headless ui in tailwind css 

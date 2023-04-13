@@ -359,7 +359,12 @@ const saveAlbum = () => {
             <FilterButton filterData={allAlbums} flag={"Album"}/>
             <FilterButton filterData={filters} flag={"Genre"}/>
             {/* range scale for matrix point */}
-            <div className="flex flex-row gap-3 border border-orange-400 rounded-md px-4  hover:border-orange-500"> 
+            <FilterButton filterData={filterByLanguage} flag={"Matrix point"}/>
+
+            
+
+
+            {/* <div className="flex flex-row gap-3 border border-orange-400 rounded-md px-4  hover:border-orange-500"> 
             <p className="text-base tracking-wide text-textColor flex font-semibold items-center gap-2">Matrix Point</p>
             <div>
                 <div class="flex justify-between w-full">
@@ -375,7 +380,9 @@ const saveAlbum = () => {
                 </div>
               <input type="range" class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
             </div>
-           </div>
+           </div> */}
+
+
         </div>
 
         {/* song Image Uploading */}

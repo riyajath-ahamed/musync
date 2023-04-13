@@ -60,7 +60,7 @@ const DashboardSongs = () => {
 
 
       {/* container */}
-      <div className="relative w-full my-4 p-4 border-2 border-orange-200 rounded-md">
+      <div className="relative w-full my-4 p-4 pt-14 border-2 border-orange-200 rounded-md">
         {/* count Amount */}
         <div className="absolute top-4 left-4 border border-orange-300 bg-white px-1 rounded-md shadow-md">
           <p className="text-lg font-bold">
