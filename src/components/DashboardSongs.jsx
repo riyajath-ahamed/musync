@@ -86,6 +86,8 @@ export const SongContainer = ({data}) => {
       {data && data.map((song,i) => (
         <SongCard key={song._id}
         data={song} index={i}
+
+        type="song"
         />
       ))}
 

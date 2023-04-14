@@ -1,10 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
+import { deleteObject } from 'firebase/storage';
+import { deleteSongById } from '../api';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 //add lazy loading to images and text
 
-const SongCard = ({data, index}) => {
+const SongCard = ({data, index, type}) => {
+
+  const [isDelete, setIsDelete] = useState(false);
+
+  const[
+    {
+       alertType
+      }, dispath] = useStateValue();
+
+  const deleteObject = (data) => {
+
+    if(type === "song"){
+      //delete song
+      deleteSongById(data._id).then((res) => {
+        if(res.data){
+          dispath({ 
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "Success" 
+          });
+
+        }
+        setTimeout(() =>{
+          dispath({ 
+              type: actionType.SET_ALERT_TYPE, 
+              alertType: null
+            });
+            }, 2000
+    
+        );
+      })
+    
+    }
+
+   
+
+
+
+  }
+
   return (
     <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col '>
       <div className='w-48 min-w-[160px] h-48 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden items-center'>
@@ -33,17 +75,38 @@ const SongCard = ({data, index}) => {
 
         <motion.i 
         whileTap={{scale : 0.75}}
-        className='text-base rounded-md text-red-500 drop-shadow-md hover:text-white hover:bg-red-700'>
+        className='text-base rounded-md text-red-500 drop-shadow-md hover:text-white hover:bg-red-700'
+        onClick={() => setIsDelete(true)}
+        >
           <MdDelete/>
         </motion.i>
       </div>
-      
 
-        
 
-      
-      
+      {isDelete && (
+        <motion.div className='absolute inset-0 backdrop-blur-md bg-cardOverlay flex items-center flex-col justify-center px-4 py-2 gap-3'
+        initial = {{opacity : 0}}
+        animate = {{opacity : 1}}
+  
+        > 
+          <p className='text-lg text-headingColor font-semibold'>Are you sure do want to delete ? </p>
+          
+          <div className='flex items-center gap-4'>
+            <motion.button className='px-3 py-1 font-semibold text-sm uppercase bg-red-500 rounded-md hover:bg-red-700 cursor-pointer text-white'
+            whileTap={{scale : 0.7}}
+            onClick={() => deleteObject(data)}
+            >Yes</motion.button>
 
+
+
+            <motion.button className='px-3 py-1 font-semibold text-sm uppercase border-2 border-red-600 rounded-md'
+            whileTap={{scale : 0.7}}
+            onClick={() => setIsDelete(false)}
+            >No</motion.button>
+          </div>
+        </motion.div>
+      )}
+      
     </motion.div>
   )
 }
