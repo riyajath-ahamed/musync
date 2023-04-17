@@ -88,6 +88,7 @@ export const SongContainer = ({data}) => {
         data={song} index={i}
 
         type="song"
+        
         />
       ))}
 

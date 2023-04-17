@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
-import { deleteObject } from 'firebase/storage';
-import { deleteSongById } from '../api';
+import { deleteObject, ref } from 'firebase/storage';
+import { deleteSongById, getAllSongs } from '../api';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
+import { storage } from '../config/firebase.config';
 
 //add lazy loading to images and text
 
@@ -12,14 +13,19 @@ const SongCard = ({data, index, type}) => {
 
   const [isDelete, setIsDelete] = useState(false);
 
-  const[
-    {
-       alertType
-      }, dispath] = useStateValue();
+  const[{alertType, allArtists, allAlbums, allSongs,}, dispath] = useStateValue();
 
   const deleteObject = (data) => {
 
     if(type === "song"){
+
+
+      const deleteRef = ref(storage, data.imageURL);
+      deleteObject(deleteRef).then(() => {
+
+        
+      })
+
       //delete song
       deleteSongById(data._id).then((res) => {
         if(res.data){
@@ -28,18 +34,45 @@ const SongCard = ({data, index, type}) => {
             alertType: "Success" 
           });
 
-        }
-        setTimeout(() =>{
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+          getAllSongs().then((data) => {
+            dispath({
+              type: actionType.SET_ALL_SONGS,
+              allSongs: data.data
+            })
+            
+          })
+
+        }else{
           dispath({ 
-              type: actionType.SET_ALERT_TYPE, 
-              alertType: null
-            });
-            }, 2000
-    
-        );
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "error" 
+          });
+
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+
+        }
+        
       })
     
     }
+
+
+    
 
    
 
