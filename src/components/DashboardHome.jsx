@@ -102,11 +102,11 @@ const DashboardHome = () => {
 
     chart
     .render(document.getElementById('chart'))
-    .catch(() => window.alert('Chart failed to initialise'));
+    .catch();
 
     wordchart
     .render(document.getElementById('wchart'))
-    .catch(() => window.alert('Chart failed to initialise'));
+    .catch();
 
 
   }, [
@@ -126,9 +126,9 @@ const DashboardHome = () => {
     </div>
 
     {/* charts */}
-    <div className='w-full bg-white items-center p-3 rounded-md flex flex-wrap justify-evenly'>
-    <div id='chart' style={{ width: 300, height: 300}} className="rounded-lg shadow-md hover:shadow-orange-500"></div>
-    <div id='wchart' style={{ width: 300, height: 300}} className="rounded-lg shadow-md hover:shadow-orange-500"></div>
+    <div className='w-full bg-white rounded-md flex flex-wrap justify-evenly'>
+    <div id='chart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
+    <div id='wchart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
     </div>
     </div>
 
