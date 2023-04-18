@@ -184,9 +184,22 @@ const SongCard = ({data, index, type}) => {
 
   }
 
+  const addToContext =() =>{
+    console.log(type);
+  }
+
   return (
-    <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col '>
-      <div className='w-48 min-w-[160px] h-48 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden items-center'>
+    <motion.div className='relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col '
+    
+    onClick={type === "song" && addToContext}
+
+    // Add the model type to the artist and albums
+    
+    >
+      <div className='w-48 min-w-[160px] h-48 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden items-center'
+        
+      
+      >
         <motion.img
         whileHover={{ scale: 1.05 }}
         src={data.imageURL} alt={data.name} className='w-full h-full rounded-lg object-cover' />

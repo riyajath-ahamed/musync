@@ -10,6 +10,9 @@ export const initialState = {
     matrixpointFilter: null,
     albumFilter: null,
     alertType: null,
+
+    isSongPlaying : false,
+    songIndex : 0
     
 
 
