@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
 import { deleteObject, ref } from 'firebase/storage';
-import { deleteSongById, getAllSongs } from '../api';
+import { deleteAlbumById, deleteArtistById, deleteSongById, getAllAlbums, getAllArtist, getAllSongs } from '../api';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
 import { storage } from '../config/firebase.config';
@@ -15,15 +15,17 @@ const SongCard = ({data, index, type}) => {
 
   const[{alertType, allArtists, allAlbums, allSongs,}, dispath] = useStateValue();
 
-  const deleteObject = (data) => {
+  const deleteData = (data) => {
+
+    //console.log(data);
+
+    // For deleting songs
 
     if(type === "song"){
 
-
       const deleteRef = ref(storage, data.imageURL);
-      deleteObject(deleteRef).then(() => {
 
-        
+      deleteObject(deleteRef).then(() => { 
       })
 
       //delete song
@@ -31,7 +33,7 @@ const SongCard = ({data, index, type}) => {
         if(res.data){
           dispath({ 
             type: actionType.SET_ALERT_TYPE, 
-            alertType: "Success" 
+            alertType: "success" 
           });
 
           setTimeout(() =>{
@@ -68,15 +70,117 @@ const SongCard = ({data, index, type}) => {
         }
         
       })
-    
+
     }
 
+    //For album
 
-    
+    if(type === "album"){
 
-   
+      const deleteRef = ref(storage, data.imageURL);
 
+      deleteObject(deleteRef).then(() => { 
+      })
 
+      
+      deleteAlbumById(data._id).then((res) => {
+        if(res.data){
+          dispath({ 
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "success" 
+          });
+
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+          getAllAlbums().then((data) => {
+            dispath({
+              type: actionType.SET_ALL_ALBUMS,
+              all: data.data,
+            });
+            
+          })
+
+        }else{
+          dispath({ 
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "error" 
+          });
+
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+
+        }
+        
+      })
+
+    }
+
+    //for artist
+
+    if(type === "artist"){
+
+      const deleteRef = ref(storage, data.imageURL);
+
+      deleteObject(deleteRef).then(() => { 
+      })
+
+      
+      deleteArtistById(data._id).then((res) => {
+        if(res.data){
+          dispath({ 
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "success" 
+          });
+
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+          getAllArtist().then((data) => {
+            dispath({
+              type: actionType.SET_ALL_ARTISTS,
+              allArtists: data.data,
+            });
+            
+          })
+
+        }else{
+          dispath({ 
+            type: actionType.SET_ALERT_TYPE, 
+            alertType: "error" 
+          });
+
+          setTimeout(() =>{
+            dispath({ 
+                type: actionType.SET_ALERT_TYPE, 
+                alertType: null
+              });
+              }, 2000 
+      
+          );
+
+        }
+        
+      })
+
+    }
+  
 
   }
 
@@ -127,7 +231,7 @@ const SongCard = ({data, index, type}) => {
           <div className='flex items-center gap-4'>
             <motion.button className='px-3 py-1 font-semibold text-sm uppercase bg-red-500 rounded-md hover:bg-red-700 cursor-pointer text-white'
             whileTap={{scale : 0.7}}
-            onClick={() => deleteObject(data)}
+            onClick={() => deleteData(data)}
             >Yes</motion.button>
 
 

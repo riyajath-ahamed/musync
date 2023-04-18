@@ -111,7 +111,7 @@ useEffect(() => {
     setIsAlbumUploading(true)
     dispath({ 
       type: actionType.SET_ALERT_TYPE, 
-      alertType: "Success" 
+      alertType: "success" 
     });
 
     // setInterval(() => {
@@ -176,20 +176,11 @@ useEffect(() => {
 const saveSong = () => {
 
   if(!songImageCover || !audioImageCover){
-    //alert
+
     dispath({ 
       type: actionType.SET_ALERT_TYPE, 
-      alertType: "error" 
+      alertType: "warning" 
     }); 
-
-    // setInterval(() => {
-
-    //   dispath({ 
-    //   type: actionType.SET_ALERT_TYPE, 
-    //   alertType: null
-    // });
-    // }, 4000);
-
     setTimeout(() =>{
       dispath({ 
           type: actionType.SET_ALERT_TYPE, 
@@ -198,7 +189,6 @@ const saveSong = () => {
         }, 2000
 
     );
-
 
 
 
@@ -236,15 +226,6 @@ const saveSong = () => {
       type: actionType.SET_ALERT_TYPE, 
       alertType: "success" 
     }); 
-
-    // setInterval(() => {
-
-    //   dispath({ 
-    //   type: actionType.SET_ALERT_TYPE, 
-    //   alertType: null
-    // });
-      
-    // }, 4000);
     setTimeout(() =>{
       dispath({ 
           type: actionType.SET_ALERT_TYPE, 
@@ -276,6 +257,19 @@ const saveSong = () => {
 const saveArtist =() =>{
    if(!artistImageCover || !artistName || !instagram){
 
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "warning" 
+    }); 
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
+
 
      //alert
    }else{
@@ -297,6 +291,19 @@ const saveArtist =() =>{
       }
     )
 
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "success" 
+    }); 
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
+
     
     setIsArtistUploading(false);
     setArtistImageCover(null);
@@ -312,6 +319,21 @@ const saveArtist =() =>{
 const saveAlbum = () => {
 
   if(!albumImageCover || !albumName){
+
+
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "warning" 
+    }); 
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
+
     //alert
   }else{
     // saveNewAlbum
@@ -331,6 +353,19 @@ const saveAlbum = () => {
       })
 
     })
+
+    dispath({ 
+      type: actionType.SET_ALERT_TYPE, 
+      alertType: "success" 
+    }); 
+    setTimeout(() =>{
+      dispath({ 
+          type: actionType.SET_ALERT_TYPE, 
+          alertType: null
+        });
+        }, 2000
+
+    );
 
 
     setIsAlbumUploading(false);

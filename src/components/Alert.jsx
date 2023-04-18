@@ -61,12 +61,13 @@ const Alert = ({ type }) => {
         exit={{translateX : 200, opacity: 0}}
         key={type}
       className={`fixed top-12 right-12 px-4 py-2 rounded-full backdrop-blur-md flex items-center justify-center shadow-xl 
-    ${type === "success" && "border-2 border-green-500 text-base"}
-    ${type === "error" && "border-2 border-red-500 text-base"}
-    ${type === "warning" && "border-2 border-yellow-500 text-base"}
+        ${type === "success" && "border-2 border-green-500 text-base"}
+        ${type === "error" && "border-2 border-red-500 text-base"}
+        ${type === "warning" && "border-2 border-yellow-500 text-base"}
     `}
     >
       {/* Success alert statment */}
+      
       {type === "success" && (
         <div className="flex items-center justify-center gap-4">
           <div class="bg-green-500 inline-block rounded-full p-1 mr-1 text-white">
