@@ -13,14 +13,10 @@ export const bgColors = [
 ];
 
 export const cardColor= [
-  "bg-gradient-to-r from-fuchsia-600 to-pink-600 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-r from-fuchsia-600 to-purple-600 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-r from-blue-800 to-indigo-900 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-r from-emerald-500 to-emerald-900 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-r from-blue-600 to-violet-600 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-r from-violet-500 to-purple-500 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-bl from-fuchsia-700 to-pink-500 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center",
-  "bg-gradient-to-bl from-fuchsia-700 to-yellow-400 p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center"
+  "bg-gradient-to-r from-violet-500 to-purple-500 bg-clip-text text-transparent ",
+  "bg-gradient-to-r from-fuchsia-500 to-cyan-500 bg-clip-text text-transparent ",
+  "bg-gradient-to-r from-blue-800 to-indigo-900 bg-clip-text text-transparent",
+  "bg-gradient-to-r from-fuchsia-600 to-purple-600 bg-clip-text text-transparent ",
 
-
+  "bg-gradient-to-r from-purple-500 to-purple-900 bg-clip-text text-transparent ",
 ];

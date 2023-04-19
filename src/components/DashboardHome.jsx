@@ -4,11 +4,15 @@ import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
 
 
-import { FaUsers } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { GiLoveSong, GiMusicalNotes } from "react-icons/gi";
 import { RiUserStarFill } from "react-icons/ri"
+
+import { IoIosAlbums } from "react-icons/io"
+
 import { bgColors, cardColor } from '../utils/styles';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom';
+
 
 
 export const DashboardCard = ({icon, name, count}) => {
@@ -19,10 +23,10 @@ export const DashboardCard = ({icon, name, count}) => {
   return(
     <div 
     
-    className= {bg_color}>
+    className= "bg-white p-4 w-40 gap-3 h-auto rounded-lg shadow-md flex flex-col items-center justify-center">
       {icon}
-      <p className='text-xl text-white font-semibold '>{name}</p>
-      <p className='text-xl text-white '>{count}</p>
+      <p className={`${bg_color} text-2xl font-bold`} >{name}</p>
+      <p className='text-xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-medium'>{count}</p>
     </div>
   )
 
@@ -118,10 +122,10 @@ const DashboardHome = () => {
     <div>
     <div className='w-full p-6 flex items-center justify-evenly flex-wrap'>
       
-        <DashboardCard icon={<FaUsers className="text-3xl text-white" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0}/>
-        <DashboardCard icon={<GiLoveSong className="text-3xl text-white" />} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
-        <DashboardCard icon={<RiUserStarFill className="text-3xl text-white" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
-        <DashboardCard icon={<GiMusicalNotes className="text-3xl text-white" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
+        <DashboardCard icon={<FaUser className="text-3xl text-slate-300 drop-shadow-md" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0}/>
+        <DashboardCard icon={ songicon} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
+        <DashboardCard icon={<RiUserStarFill className="text-3xl text-slate-300 drop-shadow-md" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
+        <DashboardCard icon={<IoIosAlbums className="text-3xl text-slate-300 drop-shadow-md" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
 
     </div>
 
@@ -136,3 +140,8 @@ const DashboardHome = () => {
 }
 
 export default DashboardHome
+
+export const songicon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-slate-300 drop-shadow-md">
+<path fillRule="evenodd" d="M19.952 1.651a.75.75 0 01.298.599V16.303a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.403-4.909l2.311-.66a1.5 1.5 0 001.088-1.442V6.994l-9 2.572v9.737a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.402-4.909l2.31-.66a1.5 1.5 0 001.088-1.442V9.017 5.25a.75.75 0 01.544-.721l10.5-3a.75.75 0 01.658.122z" clipRule="evenodd" />
+</svg>
+
