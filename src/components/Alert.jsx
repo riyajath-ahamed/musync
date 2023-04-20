@@ -54,6 +54,8 @@ const Alert = ({ type }) => {
     </svg>
   );
 
+  //Editing the alert component with custom alert messages
+
   return (
     <motion.div
         initial={{translateX : 200, opacity: 0}}
@@ -88,7 +90,7 @@ const Alert = ({ type }) => {
           </div>
 
           <p className="text-xl font-semibold ">
-            Somting went wrong... Please try Again
+            Somting went wrong..
           </p>
 
           <p className="text-sm font-light"> error descriptin</p>
