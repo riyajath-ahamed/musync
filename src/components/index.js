@@ -22,3 +22,5 @@ export {default as FilterButton} from './FilterButton';
 export {default as DisabledButton} from './DisabledButton';
 export {default as FileUploader} from './FileUploader';
 export {default as Alert} from './Alert';
+
+export {default as MusicPlayer} from './MusicPlayer';

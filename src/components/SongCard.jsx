@@ -13,7 +13,7 @@ const SongCard = ({data, index, type}) => {
 
   const [isDelete, setIsDelete] = useState(false);
 
-  const[{alertType, allArtists, allAlbums, allSongs,}, dispath] = useStateValue();
+  const[{alertType, allArtists, allAlbums, allSongs, songIndex, isSongPlaying }, dispath] = useStateValue();
 
   const deleteData = (data) => {
 
@@ -185,7 +185,20 @@ const SongCard = ({data, index, type}) => {
   }
 
   const addToContext =() =>{
-    console.log(type);
+    if(!isSongPlaying){
+      dispath({
+        type: actionType.SET_ISSONG_PLAYING,
+        isSongPlaying: true,
+      })
+    }
+
+    if(songIndex !== index){
+      dispath({
+        type: actionType.SET_SONG_INDEX,
+        songIndex: index,
+
+      })
+    }
   }
 
   return (

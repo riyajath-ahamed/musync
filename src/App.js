@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs } from "./components";
+import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
 
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence ,motion } from "framer-motion";
 import { validateUser } from "./api";
 import { useStateValue } from "./context/StateProvider";
 import { actionType } from "./context/reducer";
@@ -13,7 +13,7 @@ const App = () => {
   const firbaseAuth = getAuth(app);
   const navigate = useNavigate();
 
-  const [{user}, dispatch] = useStateValue();
+  const [{user, isSongPlaying}, dispatch] = useStateValue();
 
   
 
@@ -61,6 +61,17 @@ const App = () => {
           <Route path="/aboutus" element={<AboutUs/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>
+
+        {isSongPlaying &&(
+          <motion.div
+          initial ={{opacity : 0, y : 50}}
+          animate={{opacity:1, y: 0}}
+          className={`fixed min-w-[700px] h-26 inset-x-0 bottom-0 bg-cardOverlay drop-shadow-2xl  backdrop-blur-md flex items-center justify-center rounded-t-3xl`}
+          >
+           <MusicPlayer /> 
+
+          </motion.div>
+        )}
       </div>
     </AnimatePresence>
   );

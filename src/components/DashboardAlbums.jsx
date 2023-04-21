@@ -14,7 +14,7 @@ const DashboardAlbums = () => {
       getAllAlbums().then((data) => {
         dispatch({
           type: actionType.SET_ALL_ALBUMS,
-          all: data.data,
+          allAlbums: data.data,
         });
         
       })
