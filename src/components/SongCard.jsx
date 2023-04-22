@@ -13,7 +13,7 @@ const SongCard = ({data, index, type}) => {
 
   const [isDelete, setIsDelete] = useState(false);
 
-  const[{alertType, allArtists, allAlbums, allSongs, songIndex, isSongPlaying }, dispath] = useStateValue();
+  const[{alertType, allArtists, allAlbums, allSongs, songIndex, isSongPlaying, user }, dispath] = useStateValue();
 
   const deleteData = (data) => {
 
@@ -233,7 +233,9 @@ const SongCard = ({data, index, type}) => {
       {/* can replace with a option dropdown usinfg headless ui in tailwind css 
       https://headlessui.com/react/tabs */}
 
-      <div className='w-full absolute bottom-2 right-2 flex items-center justify-between px-4  '>
+      {
+        user?.user?.role === "Admin" && (
+          <div className='w-full absolute bottom-2 right-2 flex items-center justify-between px-4  '>
 
 
         <motion.i 
@@ -244,6 +246,11 @@ const SongCard = ({data, index, type}) => {
           <MdDelete/>
         </motion.i>
       </div>
+
+        )
+      }
+
+      
 
 
       {isDelete && (

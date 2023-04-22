@@ -13,11 +13,13 @@ import { getAuth } from "firebase/auth";
 
 
 import { motion } from "framer-motion";
+import { actionType } from "../context/reducer";
 
 const Header = () => {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, isSongPlaying }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
   const navigate = useNavigate();
+  
 
   const logOut = () => {
     const firebaseAuth = getAuth(app);
@@ -28,6 +30,14 @@ const Header = () => {
       })
       .catch((e) => console.log(e));
     navigate("/login", { replace: true });
+
+      if (isSongPlaying) {
+        dispatch({
+            type: actionType.SET_ISSONG_PLAYING,
+            isSongPlaying: false,
+          });
+        }
+  
   };
 
   return (

@@ -4,6 +4,7 @@ export {default as Header} from './Header';
 export {default as Premium} from './premium';
 export {default as Face} from './face';
 export {default as AboutUs} from './aboutUs';
+export {default as Library} from './library';
 
 export {default as Signup} from './Signup';
 
