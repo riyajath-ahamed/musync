@@ -15,6 +15,9 @@ export const actionType = {
 
     SET_ISSONG_PLAYING : "SET_ISSONG_PLAYING",
     SET_SONG_INDEX : "SET_SONG_INDEX",
+
+    SET_SEARCH_TERM: "SET_SEARCH_TERM",
+    SET_FILTER_TERM: "SET_FILTER_TERM"
 }
 
 const reducer = (state, action) => {
@@ -100,7 +103,19 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 songIndex: action.songIndex,
-            };    
+            };  
+            
+        case actionType.SET_SEARCH_TERM:
+            return {
+                ...state,
+                searchTerm: action.searchTerm,
+            };
+
+        case actionType.SET_FILTER_TERM:
+                return {
+                  ...state,
+                  filterTerm: action.filterTerm,
+                };
         
 
         default:

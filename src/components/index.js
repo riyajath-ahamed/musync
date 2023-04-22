@@ -25,3 +25,5 @@ export {default as FileUploader} from './FileUploader';
 export {default as Alert} from './Alert';
 
 export {default as MusicPlayer} from './MusicPlayer';
+export {default as SearchBar} from './SearchBar';
+export {default as Filter} from './Filter';
