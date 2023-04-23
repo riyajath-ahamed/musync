@@ -28,18 +28,18 @@ const Library = () => {
   const [filteredSongs, setFilteredSongs] = useState(null);
 
 
-  // useEffect(() => {
-  //   if(!allSongs){
-  //     getAllSongs().then((data) => {
-  //       dispatch({
-  //         type: actionType.SET_ALL_SONGS,
-  //         allSongs: data.data,
-  //       });
+  useEffect(() => {
+    if(!allSongs){
+      getAllSongs().then((data) => {
+        dispatch({
+          type: actionType.SET_ALL_SONGS,
+          allSongs: data.data,
+        });
         
-  //     })
-  //   }
+      })
+    }
 
-  // }, [])
+  }, [])
 
   // useEffect(() => {
   //   if (searchTerm.length > 0) {

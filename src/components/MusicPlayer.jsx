@@ -105,6 +105,8 @@ const MusicPlayer = () => {
              onPlay={() => console.log("is playing")} //add a alert for now playing
              autoPlay={true} //make true
              showSkipControls={true}
+             showJumpControls={false}
+             volume={0.5}
              onClickNext={nextTrack}
              onClickPrevious={previousTrack}
 
