@@ -8638,6 +8638,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-sliderify@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-sliderify/-/react-sliderify-1.1.3.tgz#856884fd582741d24f1edf432e1a720cce474f1f"
+  integrity sha512-NpPSnSGGGlrxjZ5gGO7gUIq+lDyyYfLoiZ4hN6Lh0ZfVbGQFm2tjGSOAZdSPkqEqWfNlPNucjTof5ZLaNPCIZg==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

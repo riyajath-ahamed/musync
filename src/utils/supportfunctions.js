@@ -4,6 +4,7 @@ export const filters = [
     { id: 3, name: "Rock", value: "rock" },
     { id: 4, name: "Melody", value: "melody" },
     { id: 5, name: "Karoke", value: "karoke" },
+    { id: 6, name: "Hip-Hop", value: "hip-hop" },
   ];
   
   export const filterByLanguage = [

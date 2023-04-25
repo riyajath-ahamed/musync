@@ -27,3 +27,5 @@ export {default as Alert} from './Alert';
 export {default as MusicPlayer} from './MusicPlayer';
 export {default as SearchBar} from './SearchBar';
 export {default as Filter} from './Filter';
+
+export {default as Hero} from './Hero';
