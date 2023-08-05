@@ -7,6 +7,7 @@ export {default as AboutUs} from './aboutUs';
 export {default as Library} from './library';
 
 export {default as Signup} from './Signup';
+export {default as Profile} from './Profile';
 
 
 //dashboard components
