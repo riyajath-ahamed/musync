@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer, Library } from "./components";
+import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer, Library, Profile } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
 
@@ -61,6 +61,7 @@ const App = () => {
           <Route path="/face" element={<Face/>} />
           <Route path="/aboutus" element={<AboutUs/>} />
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/userProfile" element={<Profile/>} />
         </Routes>
 
         {isSongPlaying &&(
