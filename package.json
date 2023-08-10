@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.2.1",
     "autoprefixer": "^10.4.13",
     "axios": "^1.2.2",
+    "daisyui": "^3.5.1",
     "firebase": "^9.15.0",
     "framer-motion": "^8.1.9",
     "moment": "^2.29.4",

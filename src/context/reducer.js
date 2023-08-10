@@ -17,7 +17,6 @@ export const actionType = {
     SET_SONG_INDEX : "SET_SONG_INDEX",
 
     SET_SEARCH_TERM: "SET_SEARCH_TERM",
-    SET_FILTER_TERM: "SET_FILTER_TERM"
 }
 
 const reducer = (state, action) => {

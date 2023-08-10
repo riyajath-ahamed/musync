@@ -113,11 +113,22 @@ const Library = () => {
       <Filter setFilteredSongs={setFilteredSongs} />
 
       <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
-        <HomeSongContainer musics={filteredSongs ? filteredSongs : allSongs} />
+        <HomeSongContainer
+          musics={filteredSongs ? filteredSongs : allSongs}
+          onClick={() => window.my_modal_3.showModal()}
+        />
       </div>
+      <dialog id="my_modal_3" className="modal">
+        <form method="dialog" className="modal-box">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click on ✕ button to close</p>
+        </form>
+      </dialog>
     </div>
-
-  )
+  );
 }
 
 export const HomeSongContainer = ({ musics }) => {
