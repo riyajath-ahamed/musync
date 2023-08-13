@@ -125,36 +125,53 @@ const DashboardHome = () => {
         <DashboardCard icon={ songicon} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
         <DashboardCard icon={<RiUserStarFill className="text-3xl text-slate-300 drop-shadow-md" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
         <DashboardCard icon={<IoIosAlbums className="text-3xl text-slate-300 drop-shadow-md" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
+
+
         <div className="stats shadow">
-  
-  <div className="stat my-6 py-5">
-    <div className="stat-figure text-orange-400">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-    </div>
-    <div className="stat-title">Total Users</div>
-    <div className="stat-value text-orange-500">{allUsers?.length > 0 ? allUsers?.length : 0}</div>
-    <div className="stat-desc"></div>
-  </div>
-  
-  <div className="stat">
-    <div className="stat-figure text-yellow-500">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-    </div>
-    <div className="stat-title">Songs</div>
-    <div className="stat-value text-yellow-500">{allSongs?.length > 0 ? allSongs?.length : 0}</div>
-    <div className="stat-desc"></div>
-  </div>
-  
-  <div className="stat">
-    <div className="stat-figure text-secondary">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-    </div>
-    <div className="stat-value">86%</div>
-    <div className="stat-title">Tasks done</div>
-    <div className="stat-desc text-secondary">31 tasks remaining</div>
-  </div>
-  
-</div>
+          
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-orange-500">
+  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+</svg>
+
+
+            </div>
+            <div className="stat-title">Users</div>
+            <div className="stat-value">{allUsers?.length > 0 ? allUsers?.length : 0}</div>
+            <div className="stat-desc">Jan 1st - Feb 1st</div>
+          </div>
+          
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 text-orange-500 drop-shadow-md">
+              <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 01.298.599V16.303a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.403-4.909l2.311-.66a1.5 1.5 0 001.088-1.442V6.994l-9 2.572v9.737a3 3 0 01-2.176 2.884l-1.32.377a2.553 2.553 0 11-1.402-4.909l2.31-.66a1.5 1.5 0 001.088-1.442V9.017 5.25a.75.75 0 01.544-.721l10.5-3a.75.75 0 01.658.122z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="stat-title">Songs</div>
+            <div className="stat-value">{allSongs?.length > 0 ? allSongs?.length : 0}</div>
+            <div className="stat-desc"></div>
+          </div>
+          
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+            <RiUserStarFill className="text-3xl text-orange-500 drop-shadow-md" />
+            </div>
+            <div className="stat-title">Artist</div>
+            <div className="stat-value">{allArtists?.length > 0 ? allArtists?.length : 0}</div>
+            <div className="stat-desc"></div>
+          </div>
+
+          <div className="stat">
+            <div className="stat-figure text-secondary">
+            <IoIosAlbums className="text-3xl text-orange-500 drop-shadow-md" />
+            </div>
+            <div className="stat-title">Album</div>
+            <div className="stat-value">{allAlbums?.length > 0 ? allAlbums?.length : 0}</div>
+            <div className="stat-desc"></div>
+          </div>
+          
+        </div>
     </div>
 
     
