@@ -4,9 +4,10 @@ import Hero from './Hero'
 import { NavLink } from 'react-router-dom'
 import { SongContainer } from './DashboardSongs'
 import { useStateValue } from '../context/StateProvider'
-import { HomeSongContainer } from './library'
+
 import { actionType } from '../context/reducer'
 import { getAllSongs } from '../api'
+import { HomeSongContainer } from './Library'
 
 
 

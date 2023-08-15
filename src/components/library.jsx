@@ -41,60 +41,61 @@ const Library = () => {
 
   }, [])
 
-  // useEffect(() => {
-  //   if (searchTerm.length > 0) {
-  //     const filtered = allSongs.filter(
-  //       (data) =>
-  //         data.artist.includes(searchTerm) ||
-  //         // data.language.includes(searchTerm) ||
-  //         data.name.includes(searchTerm) ||
-  //         data.artist.includes(artistFilter)
-  //     );
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [searchTerm]);
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      const filtered = allSongs.filter(
+        (data) =>
+          data.artist.includes(searchTerm) ||
+          // data.language.includes(searchTerm) ||
+          data.name.includes(searchTerm) ||
+          data.artist.includes(artistFilter)
+      );
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [searchTerm]);
 
-  // useEffect(() => {
-  //   const filtered = allSongs?.filter((data) => data.artist === artistFilter);
-  //   if (filtered) {
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [artistFilter]);
+  useEffect(() => {
+    const filtered = allSongs?.filter((data) => data.artist === artistFilter);
+    if (filtered) {
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [artistFilter]);
 
-  // useEffect(() => {
-  //   const filtered = allSongs?.filter(
-  //     (data) => data.category.toLowerCase() === filterTerm
-  //   );
-  //   if (filtered) {
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [filterTerm]);
+  useEffect(() => {
+    if (allSongs) {
+      const filtered = allSongs.filter(
+        (data) => data.category && data.category.toLowerCase() === filterTerm 
+      );
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs([]);
+    }
+  }, [filterTerm, allSongs]);
+  
 
-  // useEffect(() => {
-  //   const filtered = allSongs?.filter((data) => data.album === albumFilter);
-  //   if (filtered) {
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [albumFilter]);
+  useEffect(() => {
+    const filtered = allSongs?.filter((data) => data.album === albumFilter);
+    if (filtered) {
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [albumFilter]);
 
-  // useEffect(() => {
-  //   const filtered = allSongs?.filter(
-  //     (data) => data.matrixpoint === matrixpointFilter
-  //   );
-  //   if (filtered) {
-  //     setFilteredSongs(filtered);
-  //   } else {
-  //     setFilteredSongs(null);
-  //   }
-  // }, [matrixpointFilter]);
+  useEffect(() => {
+    const filtered = allSongs?.filter(
+      (data) => data.matrixpoint === matrixpointFilter
+    );
+    if (filtered) {
+      setFilteredSongs(filtered);
+    } else {
+      setFilteredSongs(null);
+    }
+  }, [matrixpointFilter]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">
