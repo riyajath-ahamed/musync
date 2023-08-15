@@ -57,7 +57,7 @@ const Home = () => {
         <p className='text-left text-3xl font-bold items-start right-6'>New Release</p>
       </div>
 
-      <div className='flex flex-nowrap gap-5 items-center scroll-pl-6 snap-center snap-always justify-center flex-row-reverse w-full overflow-x-auto'>
+      <div className='flex flex-wrap-reverse gap-5 items-center scroll-pl-6 snap-center snap-always justify-center flex-row-reverse w-full overflow-x-auto'>
        <HomeSongContainer musics={allSongs} className="scroll-ml-6 scroll-pl-6 snap-center snap-always overflow-x-auto snap-x" />
 
       </div>

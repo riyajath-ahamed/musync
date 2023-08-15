@@ -1,0 +1,68 @@
+.camera {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .camera__wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 680px;
+    margin: 0 1rem 1rem;
+    border-radius: 95rem;
+  }
+  
+  .camera__wrapper video {
+    border: 3px solid #fff;
+    border-radius: 3px;
+  }
+  
+  .camera__button-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .camera__button--snap {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .webcam-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .webcam-overlay--hidden {
+    display: none;
+  }
+  
+  .results__container {
+    background-color: #fff;
+    width: 100%;
+    padding-top: 1rem;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .results__wrapper {
+    padding: 1rem 0 0 1rem;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .camera__wrapper {
+      width: 100%;
+      margin: 0 1rem 1rem;
+    }
+  
+    .results__wrapper {
+      padding: 0;
+    }
+  }
