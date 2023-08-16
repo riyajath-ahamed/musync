@@ -43,15 +43,6 @@
     display: none;
   }
   
-  .results__container {
-    background-color: #fff;
-    width: 100%;
-    padding-top: 1rem;
-    min-height: 250px;
-    display: flex;
-    justify-content: center;
-  }
-  
   .results__wrapper {
     padding: 1rem 0 0 1rem;
   }
