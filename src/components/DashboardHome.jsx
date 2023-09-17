@@ -48,8 +48,13 @@ const wordchart = sdk.createChart({
   chartId: '63f30435-3f54-4215-8be1-affaab72407a',
   autoRefresh : true,
   
+});
+
+const matrixGraph = sdk.createChart({
+  chartId: '6506f1f0-1b75-42e0-82cf-365b47e5fb8e',
+  autoRefresh : true,
   
-  });
+});
 
 
  
@@ -112,7 +117,9 @@ const DashboardHome = () => {
     .render(document.getElementById('wchart'))
     .catch();
 
-
+    matrixGraph
+    .render(document.getElementById('mGraph'))
+    .catch();
   }, [
     
   ])
@@ -175,13 +182,13 @@ const DashboardHome = () => {
     </div>
 
     
-    
-
     {/* charts */}
     <div className='w-full bg-white rounded-md flex flex-wrap justify-evenly'>
     <div id='chart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
     <div id='wchart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
     </div>
+    <div id='mGraph' style={{ width: 500, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
+    
     </div>
 
   )

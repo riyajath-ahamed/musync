@@ -31,9 +31,10 @@ import DisabledButton from "./DisabledButton";
 
 const DashboardNewSong = () => {
 
-
-
 const [songName, setSongName] = useState("");
+const [excitingRating, setExcitingRating] = useState(5);
+const [positiveRating, setPositiveRating] = useState(5);
+console.log('-----------------> ',excitingRating, positiveRating)
 
 
 //iamge Cover state
@@ -62,7 +63,12 @@ const [isAlbumUploading, setIsAlbumUploading] = useState(false);
 
 const [albumName, setAlbumName] = useState("");
 
-
+const calculateMusicRating = (exciting, positive) => {
+  const intExciting = parseInt(exciting);
+  const intPositive = parseInt(positive);
+  setExcitingRating(intExciting);
+  setPositiveRating(intPositive);
+};
 
 const[
   {
@@ -101,77 +107,65 @@ useEffect(() => {
 }, [])
 
  const deleteFileObject = (url, isImage) => {
+   //Alldeleteing error
 
-  //Alldeleteing error
+   if (isImage) {
+     setIsImageLoading(true);
+     setIsAudioLoading(true);
+     setIsArtistUploading(true);
+     setIsAlbumUploading(true);
+     dispath({
+       type: actionType.SET_ALERT_TYPE,
+       alertType: "success",
+     });
 
-  if(isImage){
-    setIsImageLoading(true)
-    setIsAudioLoading(true)
-    setIsArtistUploading(true)
-    setIsAlbumUploading(true)
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "success" 
-    });
+     // setInterval(() => {
 
-    // setInterval(() => {
+     //   dispath({
+     //   type: actionType.SET_ALERT_TYPE,
+     //   alertType: null
+     // });
 
-    //   dispath({ 
-    //   type: actionType.SET_ALERT_TYPE, 
-    //   alertType: null
-    // });
-      
-    // }, 4000);
+     // }, 4000);
 
-    // set time out()
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
-        });
-        }, 2000
+     // set time out()
+     setTimeout(() => {
+       dispath({
+         type: actionType.SET_ALERT_TYPE,
+         alertType: null,
+       });
+     }, 2000);
+   }
 
-    );
-    
-    }
+   // repeating the delete functionfor every image and song
 
+   const deleteRef = ref(storage, url);
+   deleteObject(deleteRef).then(() => {
+     dispath({
+       type: actionType.SET_ALERT_TYPE,
+       alertType: "warning",
+     });
 
-    // repeating the delete functionfor every image and song
+     // setInterval(() => {
 
-    const deleteRef = ref(storage, url);
-    deleteObject(deleteRef).then(() => {
+     //   dispath({
+     //   type: actionType.SET_ALERT_TYPE,
+     //   alertType: null
+     // });
 
-      dispath({ 
-        type: actionType.SET_ALERT_TYPE, 
-        alertType: "warning" 
-      }); 
+     // }, 4000);
 
-      // setInterval(() => {
+     setsongImageCover(null);
+     setAudioImageCover(null);
+     setArtistImageCover(null);
+     setAlbumImageCover(null);
 
-      //   dispath({ 
-      //   type: actionType.SET_ALERT_TYPE, 
-      //   alertType: null
-      // });
-        
-      // }, 4000);
-
-      setsongImageCover(null);
-      setAudioImageCover(null);
-      setArtistImageCover(null);
-      setAlbumImageCover(null);
-
-      
-
-      setIsImageLoading(false);
-      setIsAudioLoading(false);
-      setIsArtistUploading(false);
-      setIsAlbumUploading(false);
-      
-    })
-
-
-
-}
+     setIsImageLoading(false);
+     setIsAudioLoading(false);
+     setIsArtistUploading(false);
+     setIsAlbumUploading(false);
+   });
+ };
 
 const saveSong = () => {
 
@@ -202,176 +196,147 @@ const saveSong = () => {
       album: albumFilter,
       artist: artistFilter,
       genre:genreFilter,
-      matrixpoint: matrixpointFilter,
-
+      excitingRating: excitingRating,
+      positiveRating: positiveRating,
     };
 
     saveNewSongs(data).then((res) => {
-      getAllSongs().then((songs) =>{
+      getAllSongs().then((songs) => {
         dispath({
           type: actionType.SET_ALL_SONGS,
-          allSongs: songs.data
-        })
-      }
-        )
-        
-      }
-    )
-
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "success" 
-    }); 
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
+          allSongs: songs.data,
         });
-        }, 2000
+      });
+    });
 
-    );
-
-
-
-
-      setSongName(null)
+    dispath({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "success",
+    });
+    setTimeout(() => {
+      dispath({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null,
+      });
+    }, 2000);
+      setSongName(null);
       setIsAudioLoading(false);
       setIsImageLoading(false);
       setsongImageCover(null);
       setAudioImageCover(null);
+      setExcitingRating(5);
+      setPositiveRating(5);
       dispath({ type: actionType.SET_ARTIST_FILTER, artistFilter: null });
       dispath({ type: actionType.SET_GENRE_FILTER, genreFilter: null });
       dispath({ type: actionType.SET_ALBUM_FILTER, albumFilter: null });
       dispath({ type: actionType.SET_MATRIXPOINT_FILTER, matrixpoint: null });
-
-
-
   }
-
 };
 
-const saveArtist =() =>{
-   if(!artistImageCover || !artistName || !instagram){
-
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "warning" 
-    }); 
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
-        });
-        }, 2000
-
-    );
-
-
-     //alert
-   }else{
+const saveArtist = () => {
+  if (!artistImageCover || !artistName || !instagram) {
+    dispath({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "warning",
+    });
+    setTimeout(() => {
+      dispath({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null,
+      });
+    }, 2000);
+    //alert
+  } else {
     setIsArtistUploading(true);
     const data = {
       name: artistName,
       imageURL: artistImageCover,
       instagram: `https://www.instagram.com/${instagram}`,
-    }
+    };
 
     saveNewArtist(data).then((res) => {
       getAllArtist().then((data) => {
-        dispath({ 
-          type: actionType.SET_ALL_ARTISTS, 
-          allArtists: data.data });
-        
-      })
-        
-      }
-    )
-
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "success" 
-    }); 
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
+        dispath({
+          type: actionType.SET_ALL_ARTISTS,
+          allArtists: data.data,
         });
-        }, 2000
+      });
+    });
 
-    );
+    dispath({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "success",
+    });
+    setTimeout(() => {
+      dispath({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null,
+      });
+    }, 2000);
 
-    
     setIsArtistUploading(false);
     setArtistImageCover(null);
     setArtistName("");
     setInstagram("");
-
-
-
-   }
-
+  }
 };
 
 const saveAlbum = () => {
-
-  if(!albumImageCover || !albumName){
-
-
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "warning" 
-    }); 
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
-        });
-        }, 2000
-
-    );
+  if (!albumImageCover || !albumName) {
+    dispath({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "warning",
+    });
+    setTimeout(() => {
+      dispath({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null,
+      });
+    }, 2000);
 
     //alert
-  }else{
+  } else {
     // saveNewAlbum
     setIsAlbumUploading(true);
-    const data ={
-    name: albumName,
-    imageURL: albumImageCover,
-    }
+    const data = {
+      name: albumName,
+      imageURL: albumImageCover,
+    };
 
-    saveNewAlbum(data) .then(() => {
-
+    saveNewAlbum(data).then(() => {
       getAllAlbums().then((data) => {
-        dispath({ 
+        dispath({
           type: actionType.SET_ALL_ALBUMS,
-          allAlbums: data.data });
-        
-      })
-
-    })
-
-    dispath({ 
-      type: actionType.SET_ALERT_TYPE, 
-      alertType: "success" 
-    }); 
-    setTimeout(() =>{
-      dispath({ 
-          type: actionType.SET_ALERT_TYPE, 
-          alertType: null
+          allAlbums: data.data,
         });
-        }, 2000
+      });
+    });
 
-    );
-
+    dispath({
+      type: actionType.SET_ALERT_TYPE,
+      alertType: "success",
+    });
+    setTimeout(() => {
+      dispath({
+        type: actionType.SET_ALERT_TYPE,
+        alertType: null,
+      });
+    }, 2000);
 
     setIsAlbumUploading(false);
     setAlbumImageCover(null);
-    setAlbumName(""); 
-
-
-
+    setAlbumName("");
   }
+};
 
+const handleExcitingChange = (event) => {
+  setExcitingRating(event.target.value);
+  calculateMusicRating(event.target.value, positiveRating);
+};
+
+const handlePositiveChange = (event) => {
+  setPositiveRating(event.target.value);
+  calculateMusicRating(excitingRating, event.target.value);
 };
 
 
@@ -399,14 +364,14 @@ const saveAlbum = () => {
                 <div>Exciting</div>
                 <div>Calming</div>
                 </div>
-              <input type="range" class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
+              <input type="range" value={excitingRating} min="1" max="10" onChange={handleExcitingChange} class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
             </div>
             <div>
                 <div class="flex justify-between w-full">
                 <div>Negative</div>
-                <div>Positve</div>
+                <div>Positive</div>
                 </div>
-              <input type="range" class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
+              <input type="range" min="1" max="10" value={positiveRating} onChange={handlePositiveChange} class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
             </div>
            </div>
 
