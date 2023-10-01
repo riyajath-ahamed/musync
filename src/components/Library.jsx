@@ -9,8 +9,7 @@ import SearchBar from './SearchBar';
 import { motion } from "framer-motion";
 import Filter from './Filter';
 
-const Library = () => {
-
+const Library = () => { 
   const [
     {
       searchTerm,
@@ -27,6 +26,22 @@ const Library = () => {
 
   const [filteredSongs, setFilteredSongs] = useState(null);
 
+  const [activeTab, setActiveTab] = useState("Songs");
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
+
+  const activeTabFunction = (tabName) => {
+    if (activeTab === tabName) {
+      return "bg-yellow-400";
+    } else {
+      return "bg-slate-200 hover:bg-slate-400 hover:drop-shadow-lg";
+    }
+  }
+
+  const activeTabStyle = "bg-yellow-400";
+  const inactiveTabStyle = "bg-slate-200 hover:bg-slate-400 hover:drop-shadow-lg";
 
   useEffect(() => {
     if(!allSongs){
@@ -100,34 +115,87 @@ const Library = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">
       <Header />
-      <SearchBar />
 
-      {searchTerm.length > 0 && (
-        <p className="my-4 text-base text-textColor">
-          Searched for :
-          <span className="text-xl text-cartBg font-semibold">
-            {searchTerm}
-          </span>
-        </p>
-      )}
+      {/* TODO : Add Tabs and create library with Artist , Album , Songs , Playlist, sserch */}
+ 
+      <div className="tabs w-3/6  tabs-boxed justify-center my-5 gap-5 bg-white  border-slate-600 shadow-lg shadow-yellow-100">
+        <a
+          className={`tab ${activeTabFunction("Artist")}`}
+          onClick={() => handleTabClick("Artist")}
+        >
+          Artist
+        </a>
+        <a
+          className={`tab ${activeTabFunction("Album")}`}
+          onClick={() => handleTabClick("Album")}
+        >
+          Album
+        </a>
+        <a
+          className={`tab ${activeTabFunction("Songs")}`}
+          onClick={() => handleTabClick("Songs")}
+        >
+          Songs
+        </a>
+        <a
+          className={`tab ${activeTabFunction("Playlists")}`}
+          onClick={() => handleTabClick("Playlists")}
+        >
+          Playlists
+        </a>
+        <a
+          className={`tab ${activeTabFunction("Search")}`}
+          onClick={() => handleTabClick("Search")}
+        >
+          Search
+        </a>
+      </div>
 
-      <Filter setFilteredSongs={setFilteredSongs} />
+      {
+        activeTab === "Search" && (
+          <>
+        <SearchBar /> 
 
-      <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
+        {searchTerm.length > 0 && (
+          <p className="my-4 text-base text-textColor">
+            Searched for :
+            <span className="text-xl text-cartBg font-semibold">
+              {searchTerm}
+            </span>
+          </p>
+        )}
+  
+        <Filter setFilteredSongs={setFilteredSongs} />
+  
+        <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
+          <HomeSongContainer
+            musics={filteredSongs ? filteredSongs : allSongs}
+
+          />
+        </div>
+        </>
+        )
+      }
+
+      {
+        activeTab === "Songs" && (
+
+          <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
         <HomeSongContainer
-          musics={filteredSongs ? filteredSongs : allSongs}
-          onClick={() => window.my_modal_3.showModal()}
+          musics={allSongs}
+
         />
       </div>
-      <dialog id="my_modal_3" className="modal">
-        <form method="dialog" className="modal-box">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
-          </button>
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click on ✕ button to close</p>
-        </form>
-      </dialog>
+
+        )}
+
+      {/* 
+      artist Containers
+      alubum Container
+      Playlist Container 
+      */}
+
+      
     </div>
   );
 }

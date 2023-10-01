@@ -47,6 +47,17 @@ export const getAllArtist = async () => {
     }
   };
 
+  export const getAllNewSongs = async () => {
+    // New Songs sort count limited to 6 from backend
+    try {
+      const res = await axios.get(`${baseURL}/api/songs/getNew`);
+      return res.data;
+
+    } catch (error) {
+      return null;
+    }
+  };
+
   export const getAllAlbums = async () => {
     try {
       const res = await axios.get(`${baseURL}/api/albums/getAll`);

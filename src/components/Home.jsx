@@ -6,22 +6,19 @@ import { SongContainer } from './DashboardSongs'
 import { useStateValue } from '../context/StateProvider'
 
 import { actionType } from '../context/reducer'
-import { getAllSongs } from '../api'
+import { getAllNewSongs, getAllSongs } from '../api'
 import { HomeSongContainer } from './Library'
-
-
-
-
-
 
 const Home = () => {
 
+const [{newSongs}, dispatch] = useStateValue();
+
   useEffect(() => {
-    if(!allSongs){
-      getAllSongs().then((data) => {
+    if(!newSongs){
+      getAllNewSongs().then((data) => {
         dispatch({
-          type: actionType.SET_ALL_SONGS,
-          allSongs: data.data,
+          type: actionType.SET_NEW_SONGS,
+          newSongs: data.data,
         });
         
       })
@@ -29,7 +26,7 @@ const Home = () => {
 
   }, [])
 
-  const [{allSongs}, dispatch] = useStateValue();
+
   return (
     <div className='w-full h-auto flex flex-col items-center justify-center bg-primary scroll-smooth'>
       <Header/>
@@ -58,8 +55,8 @@ const Home = () => {
         <p className='text-left text-3xl font-bold items-start right-6'>New Release</p>
       </div>
 
-      <div className='flex flex-wrap-reverse gap-5 pb-5 items-center scroll-pl-6 snap-center snap-always justify-center flex-row-reverse w-full overflow-x-auto'>
-       <HomeSongContainer musics={allSongs} className="scroll-ml-6 scroll-pl-6 snap-center snap-always overflow-x-auto snap-x" />
+      <div className='flex flex-wrap gap-5 pb-5 items-center scroll-pl-6 snap-center snap-always justify-center w-full overflow-x-auto'>
+       <HomeSongContainer musics={newSongs} className="scroll-ml-6 scroll-pl-6 snap-center snap-always overflow-x-auto snap-x" />
 
       </div>
 
