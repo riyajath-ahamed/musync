@@ -30,3 +30,4 @@ export {default as SearchBar} from './SearchBar';
 export {default as Filter} from './Filter';
 
 export {default as Hero} from './Hero';
+export {default as EmotionModal} from './Utils/Tools/EmotionModal';
