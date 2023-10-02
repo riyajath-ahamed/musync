@@ -45,6 +45,7 @@ export const AlbumContainer = ({data}) => {
         <SongCard key={song._id}
         data={song} index={i}
         type="album"
+        palace="sensitive"
         />
       ))}
 

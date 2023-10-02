@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import { SongContainer } from './DashboardSongs';
-import { useStateValue } from '../context/StateProvider';
-import { getAllSongs } from '../api';
-import { actionType } from '../context/reducer';
-import SearchBar from './SearchBar';
+import React, { useEffect, useState } from "react";
+import Header from "./Header";
+import { SongContainer } from "./DashboardSongs";
+import { useStateValue } from "../context/StateProvider";
+import { getAllSongs } from "../api";
+import { actionType } from "../context/reducer";
+import SearchBar from "./SearchBar";
 
 import { motion } from "framer-motion";
-import Filter from './Filter';
+import Filter from "./Filter";
+import { AlbumContDrawer, ArtistContDrawer } from "./Containers";
 
-const Library = () => { 
+const Library = () => {
   const [
     {
       searchTerm,
@@ -38,23 +39,18 @@ const Library = () => {
     } else {
       return "bg-slate-200 hover:bg-slate-400 hover:drop-shadow-lg";
     }
-  }
-
-  const activeTabStyle = "bg-yellow-400";
-  const inactiveTabStyle = "bg-slate-200 hover:bg-slate-400 hover:drop-shadow-lg";
+  };
 
   useEffect(() => {
-    if(!allSongs){
+    if (!allSongs) {
       getAllSongs().then((data) => {
         dispatch({
           type: actionType.SET_ALL_SONGS,
           allSongs: data.data,
         });
-        
-      })
+      });
     }
-
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (searchTerm.length > 0) {
@@ -83,14 +79,13 @@ const Library = () => {
   useEffect(() => {
     if (allSongs) {
       const filtered = allSongs.filter(
-        (data) => data.category && data.category.toLowerCase() === filterTerm 
+        (data) => data.category && data.category.toLowerCase() === filterTerm
       );
       setFilteredSongs(filtered);
     } else {
       setFilteredSongs([]);
     }
   }, [filterTerm, allSongs]);
-  
 
   useEffect(() => {
     const filtered = allSongs?.filter((data) => data.album === albumFilter);
@@ -117,7 +112,7 @@ const Library = () => {
       <Header />
 
       {/* TODO : Add Tabs and create library with Artist , Album , Songs , Playlist, sserch */}
- 
+
       <div className="tabs w-3/6  tabs-boxed justify-center my-5 gap-5 bg-white  border-slate-600 shadow-lg shadow-yellow-100">
         <a
           className={`tab ${activeTabFunction("Artist")}`}
@@ -138,7 +133,9 @@ const Library = () => {
           Songs
         </a>
         <a
-          className={`tab ${activeTabFunction("Playlists")}`}
+          // TODO: Add components and Remove disabled
+          disabled="disabled"
+          className={`tab ${activeTabFunction("Playlists")} btn-disabled`}
           onClick={() => handleTabClick("Playlists")}
         >
           Playlists
@@ -151,54 +148,56 @@ const Library = () => {
         </a>
       </div>
 
-      {
-        activeTab === "Search" && (
-          <>
-        <SearchBar /> 
+      {activeTab === "Search" && (
+        <>
+          <SearchBar />
 
-        {searchTerm.length > 0 && (
-          <p className="my-4 text-base text-textColor">
-            Searched for :
-            <span className="text-xl text-cartBg font-semibold">
-              {searchTerm}
-            </span>
-          </p>
-        )}
-  
-        <Filter setFilteredSongs={setFilteredSongs} />
-  
-        <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
-          <HomeSongContainer
-            musics={filteredSongs ? filteredSongs : allSongs}
+          {searchTerm.length > 0 && (
+            <p className="my-4 text-base text-textColor">
+              Searched for :
+              <span className="text-xl text-cartBg font-semibold">
+                {searchTerm}
+              </span>
+            </p>
+          )}
 
-          />
-        </div>
-        </>
-        )
-      }
-
-      {
-        activeTab === "Songs" && (
+          <Filter setFilteredSongs={setFilteredSongs} />
 
           <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
-        <HomeSongContainer
-          musics={allSongs}
+            <HomeSongContainer
+              musics={filteredSongs ? filteredSongs : allSongs}
+            />
+          </div>
+        </>
+      )}
 
-        />
-      </div>
+      {activeTab === "Songs" && (
+        <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
+          <HomeSongContainer musics={allSongs} />
+        </div>
+      )}
 
-        )}
+      {activeTab === "Artist" && (
+        <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
+          <ArtistContDrawer />
+        </div>
+      )}
+
+      {activeTab === "Album" && (
+        <div className="w-full h-auto flex items-center justify-evenly gap-4 flex-wrap p-4">
+          <AlbumContDrawer />
+        </div>
+      )}
 
       {/* 
-      artist Containers
-      alubum Container
-      Playlist Container 
-      */}
+      [-] artist Containers
+      [-] alubum Container
+      [] Playlist Container 
 
-      
+      */}
     </div>
   );
-}
+};
 
 export const HomeSongContainer = ({ musics }) => {
   const [{ isSongPlaying, songIndex }, dispatch] = useStateValue();
@@ -250,4 +249,4 @@ export const HomeSongContainer = ({ musics }) => {
   );
 };
 
-export default Library
+export default Library;

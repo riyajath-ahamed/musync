@@ -74,7 +74,7 @@ const Header = () => {
               isActive ? isActiveStyles : isNotActiveStyles
             }
           >
-            <img src={emo} alt="logo" className="w-20"  />
+            <img src={emo} alt="logo" className="w-20" />
           </NavLink>
         </li>
         <li className="mx-5 text-lg">
@@ -100,7 +100,7 @@ const Header = () => {
       </ul>
 
       <div
-        className="flex items-center ml-auto cursor-pointer gap-2 relative"
+        className="flex items-center ml-auto cursor-pointer gap-2 pl-10 relative"
         onMouseEnter={() => setIsMenu(true)}
         onMouseLeave={() => setIsMenu(false)}
       >
@@ -110,21 +110,22 @@ const Header = () => {
           alt="userlogo"
           referrerPolicy="no-referrer"
         />
-        <div className="flex flex-col">
-          <p className="text-textColor text-lg hover:text-headingColor font-semibold">
-            {user?.user?.name}
-          </p>
-          <p className="flex items-center gap-2 text-xs text-gray-500 font-normal">
-            {user?.user?.role}
-          </p>
-        </div>
 
         {isMenu && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="absolute z-10 flex flex-col top-12 p-3 right-0 w-275 gap-2 bg-card shadow-lg rounded-lg backdrop-blur-sm ">
+            className="absolute z-10 flex flex-col top-12 p-3 right-0 w-275 gap-2 bg-card shadow-lg rounded-lg backdrop-blur-sm "
+          >
+            <div className="flex flex-col bg-slate-400 rounded-lg p-5">
+              <p className="text-white text-lg hover:text-headingColor font-semibold">
+                {user?.user?.name}
+              </p>
+              <p className="flex items-center gap-2 text-xs text-white font-normal">
+                {user?.user?.role}
+              </p>
+            </div>
             <NavLink to={"/userProfile"}>
               <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
                 Profile
@@ -134,26 +135,19 @@ const Header = () => {
               My Favorites
             </p>
             <hr />
-            
-            {
-              user?.user?.role === "Admin" && (
-              <>
-              <div className="flex items-baseline">
-              <NavLink to={"/dashboard/home"}>
-            <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
-            Dashboard 
-            </p>
-            </NavLink>
-            </div>
-            <hr />
-            
-              </>
-                
-              )
-            }
 
-            
-            
+            {user?.user?.role === "Admin" && (
+              <>
+                <div className="flex items-baseline">
+                  <NavLink to={"/dashboard/home"}>
+                    <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">
+                      Dashboard
+                    </p>
+                  </NavLink>
+                </div>
+                <hr />
+              </>
+            )}
 
             <p
               className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out"
