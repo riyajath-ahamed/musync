@@ -9,7 +9,7 @@ import Hero5 from "../Asset/hero5.jpg"
 const Hero = () => {
   return (
     <div >
-        <Sliderify rounded={true} showNavDots={false} showNavButtons={false} className='w-656'>
+        <Sliderify rounded={true} showNavDots={false} showNavButtons={false} className=' w-350 md:w-656'>
         <div style={{ backgroundColor: "red", color: "red" }}>
             <img src={Hero1} alt="hero1" />
         </div>
