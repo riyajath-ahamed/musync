@@ -106,7 +106,7 @@ const Header = () => {
       >
         <img
           src={user?.user?.imageURL}
-          className="w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg"
+          className="w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg bg-white p-1 "
           alt="userlogo"
           referrerPolicy="no-referrer"
         />
@@ -118,13 +118,23 @@ const Header = () => {
             exit={{ opacity: 0, y: 50 }}
             className="absolute z-10 flex flex-col top-12 p-3 right-0 w-275 gap-2 bg-card shadow-lg rounded-lg backdrop-blur-sm "
           >
-            <div className="flex flex-col bg-slate-400 rounded-lg p-5">
-              <p className="text-white text-lg hover:text-headingColor font-semibold">
-                {user?.user?.name}
-              </p>
-              <p className="flex items-center gap-2 text-xs text-white font-normal">
-                {user?.user?.role}
-              </p>
+            <div className="flex flex-row bg-slate-400 gap-1 rounded-lg p-5">
+              <div className="flex flex-col">
+                <img
+                  src={user?.user?.imageURL}
+                  className="w-12 h-12 min-w-[44px] object-cover rounded-full shadow-lg "
+                  alt="userlogo"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-white text-lg hover:text-headingColor font-semibold">
+                  {user?.user?.name}
+                </p>
+                <p className="flex items-center gap-2 text-xs text-white font-normal">
+                  {user?.user?.role}
+                </p>
+              </div>
             </div>
             <NavLink to={"/userProfile"}>
               <p className="text-base text-textColor hover:font-semibold duration-150 transition-all ease-in-out">

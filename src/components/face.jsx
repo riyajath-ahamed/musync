@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { loadModels } from './Utils/emotionApi';
 import Camera from './Utils/Camera/Camera';
 import EmotionModal from './Utils/Tools/EmotionModal';
+import { generatePlaylist } from '../api';
 
 const Face = () => {
   //loadModels();
@@ -27,6 +28,13 @@ const Face = () => {
     //document.getElementById("my_modal_2").close();
     setCurrentEmotion(null);
   };
+
+  useEffect(() => {
+    if (currentEmotion) {
+      generatePlaylist(currentEmotion);
+    }
+  }, [currentEmotion])
+  
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center bg-primary">
@@ -103,6 +111,7 @@ const Face = () => {
           </div>
         )}
       </div>
+      
     </div>
   );
 }

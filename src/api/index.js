@@ -80,6 +80,16 @@ export const getAllArtist = async () => {
     }
   }
 
+  export const generatePlaylist = async (emotion) => {
+    try {
+      const res = await axios.post(`${baseURL}/api/generateplaylist/generate`, {data : {emotion : emotion}});
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+
+  }
+
   export const removeUser = async (userId) =>{
 
     try {
