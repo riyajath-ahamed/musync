@@ -361,8 +361,8 @@ const handlePositiveChange = (event) => {
             <p className="text-base tracking-wide text-textColor flex font-semibold items-center gap-2">Matrix Point</p>
             <div>
                 <div class="flex justify-between w-full">
-                <div>Exciting</div>
                 <div>Calming</div>
+                <div>Exciting</div>
                 </div>
               <input type="range" value={excitingRating} min="1" max="10" onChange={handleExcitingChange} class="h-2 w-full cursor-ew-resize appearance-none rounded-full bg-gray-200 disabled:cursor-not-allowed" />
             </div>
