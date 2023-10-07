@@ -3,13 +3,18 @@ import Header from './Header'
 import { loadModels } from './Utils/emotionApi';
 import Camera from './Utils/Camera/Camera';
 import EmotionModal from './Utils/Tools/EmotionModal';
-import { generatePlaylist } from '../api';
+import { generatePlaylist, getAllNewSongs } from '../api';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 const Face = () => {
   //loadModels();
 
+  const [{allSongs}, dispatch] = useStateValue();
+
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [currentEmotion, setCurrentEmotion] = useState(null);
+  const [playlistGenerated, setPlaylistGenerated] = useState(null);
 
   const openCamera = () => {
     setIsCameraOpen(true);
@@ -31,7 +36,34 @@ const Face = () => {
 
   useEffect(() => {
     if (currentEmotion) {
-      generatePlaylist(currentEmotion);
+      generatePlaylist(currentEmotion).then((res) => {
+        if (res) {
+          console.log(" -------000000----->",res.playlist);
+          const playlist = res.playlist;
+          if (!allSongs) {
+            getAllNewSongs().then((data) => {
+              dispatch({
+                type: actionType.SET_NEW_SONGS,
+                allSongs: data.data,
+              });
+            });
+          }
+          
+          const songNames = [];
+          for (const playlistId of playlist) {
+            const matchingSong = allSongs.find(song => song._id === playlistId);
+    
+            if (matchingSong) {
+                songNames.push(matchingSong.name);
+            } else {
+                songNames.push("Unknown"); // Handle unknown song IDs
+            }
+        }
+        setPlaylistGenerated(songNames);
+        console.log(" -------000000----->",songNames);
+
+        }
+      });
     }
   }, [currentEmotion])
   
@@ -40,7 +72,7 @@ const Face = () => {
     <div className="w-full h-full flex flex-col items-center justify-center bg-primary">
       <Header />
       {currentEmotion && (
-        <EmotionModal closeDialog={closeDialog}  currentEmotion={currentEmotion}/>
+        <EmotionModal closeDialog={closeDialog}  currentEmotion={currentEmotion} playlistGenerated={playlistGenerated}/>
       )}
       <div className="alert w-880 alert-warning">
         <svg
