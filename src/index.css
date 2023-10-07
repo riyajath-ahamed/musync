@@ -40,3 +40,8 @@
   .rhap_download-progress, .rhap_volume-bar{
     background-color: #ff770033 !important; 
   }
+
+  body {
+    font-family: 'Poppins';
+    font-size: 14px;
+}
