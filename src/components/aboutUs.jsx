@@ -115,7 +115,7 @@ const aboutus = () => {
             <span className="block lg:inline-block">
               {" "}
               Made with<span className="inline-block h-4">{heart}</span> by
-              <a href="https://github.com/riyajath-ahamed"> Riyajath Ahamed</a>
+              <a href="https://riyajathahamed.tech/"> Riyajath Ahamed</a>
             </span>
           </p>
         </div>

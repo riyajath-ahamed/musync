@@ -14,7 +14,6 @@ const Home = () => {
 const [{newSongs}, dispatch] = useStateValue();
 
   useEffect(() => {
-    if(!newSongs){
       getAllNewSongs().then((data) => {
         dispatch({
           type: actionType.SET_NEW_SONGS,
@@ -22,8 +21,6 @@ const [{newSongs}, dispatch] = useStateValue();
         });
         
       })
-    }
-
   }, [])
 
 

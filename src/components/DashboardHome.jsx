@@ -41,7 +41,6 @@ const chart = sdk.createChart({
 chartId: '63f0dee2-ad08-4c02-8bd6-243a65de512d',
 autoRefresh : true,
 
-
 });
 
 const wordchart = sdk.createChart({
@@ -109,6 +108,10 @@ const DashboardHome = () => {
 
     // if statment for the chart refewashing issue
 
+  }, [])
+
+
+  useEffect(() => {
     chart
     .render(document.getElementById('chart'))
     .catch();
@@ -120,9 +123,7 @@ const DashboardHome = () => {
     matrixGraph
     .render(document.getElementById('mGraph'))
     .catch();
-  }, [
-    
-  ])
+  }, [allSongs])
   
 
   return (
