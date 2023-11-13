@@ -7,7 +7,7 @@ import { useStateValue } from '../context/StateProvider'
 
 import { actionType } from '../context/reducer'
 import { getAllNewSongs, getAllSongs } from '../api'
-import { HomeSongContainer } from './Library'
+import SongContainerDrawer from './songContainerDrawer'
 
 const Home = () => {
 
@@ -53,7 +53,7 @@ const [{newSongs}, dispatch] = useStateValue();
       </div>
 
       <div className='flex flex-wrap gap-5 pb-5 items-center scroll-pl-6 snap-center snap-always justify-center w-full overflow-x-auto'>
-       <HomeSongContainer musics={newSongs} className="scroll-ml-6 scroll-pl-6 snap-center snap-always overflow-x-auto snap-x" />
+       <SongContainerDrawer musics={newSongs} drawerName={"home"} className="scroll-ml-6 scroll-pl-6 snap-center snap-always overflow-x-auto snap-x" />
 
       </div>
 

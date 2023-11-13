@@ -31,3 +31,4 @@ export {default as Filter} from './Filter';
 
 export {default as Hero} from './Hero';
 export {default as EmotionModal} from './Utils/Tools/EmotionModal';
+export {default as SongContainerDrawer} from './songContainerDrawer';

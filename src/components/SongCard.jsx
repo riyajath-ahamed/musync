@@ -192,11 +192,10 @@ const SongCard = ({data, index, type , palace}) => {
       })
     }
 
-    if(songIndex !== index){
+    if(songIndex !== index){ 
       dispath({
         type: actionType.SET_SONG_INDEX,
         songIndex: index,
-
       })
     }
   }
