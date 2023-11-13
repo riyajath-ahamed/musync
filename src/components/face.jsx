@@ -3,7 +3,7 @@ import Header from './Header'
 import { loadModels } from './Utils/emotionApi';
 import Camera from './Utils/Camera/Camera';
 import EmotionModal from './Utils/Tools/EmotionModal';
-import { generatePlaylist, getAllNewSongs } from '../api';
+import { generatePlaylist, getAllSongs } from '../api';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
 
@@ -41,7 +41,7 @@ const Face = () => {
           console.log(" -------000000----->",res.playlist);
           const playlist = res.playlist;
           if (!allSongs) {
-            getAllNewSongs().then((data) => {
+            getAllSongs().then((data) => {
               dispatch({
                 type: actionType.SET_NEW_SONGS,
                 allSongs: data.data,
