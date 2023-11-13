@@ -42,14 +42,12 @@ const Library = () => {
   };
 
   useEffect(() => {
-    if (!allSongs) {
       getAllSongs().then((data) => {
         dispatch({
           type: actionType.SET_ALL_SONGS,
           allSongs: data.data,
         });
       });
-    }
   }, []);
 
   useEffect(() => {
