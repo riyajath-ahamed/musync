@@ -21,6 +21,13 @@ const App = () => {
     false || window.localStorage.getItem("auth") === "true"
   );
 
+  const isAdminUser = () => {
+    if (user) {
+      return user.user.role === "admin";
+    }
+    return false;
+  }
+
   useEffect(() => {
     firbaseAuth.onAuthStateChanged((userCred) => {
       //console.log(userCred)
@@ -55,23 +62,22 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
-          <Route path="/dashboard/*" element={<Dashboard/>} />
-          <Route path="/premium" element={<Premium/>} />
-          <Route path="/library" element={<Library/>} />
-          <Route path="/face" element={<Face/>} />
-          <Route path="/aboutus" element={<AboutUs/>} />
-          <Route path="/signup" element={<Signup/>} />
-          <Route path="/userProfile" element={<Profile/>} />
+          {isAdminUser() && <Route path="/dashboard" element={<Dashboard />} />}
+          <Route path="/premium" element={<Premium />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/face" element={<Face />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/userProfile" element={<Profile />} />
         </Routes>
 
-        {isSongPlaying &&(
+        {isSongPlaying && (
           <motion.div
-          initial ={{opacity : 0, y : 50}}
-          animate={{opacity:1, y: 0}}
-          className={`fixed min-w-[700px] h-26 inset-x-0 bottom-0 bg-cardOverlay drop-shadow-2xl  backdrop-blur-md flex items-center justify-center rounded-t-3xl`}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`fixed min-w-[700px] h-26 inset-x-0 bottom-0 bg-cardOverlay drop-shadow-2xl  backdrop-blur-md flex items-center justify-center rounded-t-3xl`}
           >
-           <MusicPlayer /> 
-
+            <MusicPlayer />
           </motion.div>
         )}
       </div>
