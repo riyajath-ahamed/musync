@@ -203,7 +203,7 @@ const SongCard = ({data, index, type , palace}) => {
   return (
     <motion.div
       className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col "
-      onClick={type === "song" && addToContext}
+      onClick={type === "song" ? (addToContext): null}
 
       // Add the model type to the artist and albums
     >

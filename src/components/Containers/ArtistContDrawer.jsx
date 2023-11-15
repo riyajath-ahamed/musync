@@ -3,6 +3,7 @@ import SongCard from '../SongCard'
 import { useStateValue } from '../../context/StateProvider';
 import { getAllArtist } from '../../api';
 import { actionType } from '../../context/reducer';
+import PopupModal from './PopupModal';
 
 const ArtistContDrawer = () => {
 
@@ -34,7 +35,9 @@ const ArtistContDrawer = () => {
     ))}
 
 
-  </div></div>
+  </div>
+  {PopupModal()}
+  </div>
   )
 }
 
