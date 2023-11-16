@@ -15,8 +15,6 @@ const App = () => {
 
   const [{user, isSongPlaying}, dispatch] = useStateValue();
 
-  
-
   const [auth, setAuth] = useState(
     false || window.localStorage.getItem("auth") === "true"
   );
