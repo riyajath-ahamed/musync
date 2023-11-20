@@ -170,5 +170,25 @@ export const getAllArtist = async () => {
 
   }
 
+  export const getArtistById = async (id) => {
+
+    try {
+      const res = await axios.get(`${baseURL}/api/artist/getOne/${id}`);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  export const getSongsByArtistName = async (instagram) => {
+
+    try {
+      const res = await axios.get(`${baseURL}/api/songs/getOneName/${instagram}`);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+
   
 

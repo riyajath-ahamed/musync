@@ -12,6 +12,7 @@ const FilterButton = ({filterData, flag}) => {
   const [filterMenu, setFilterMenu] = useState(false);
   const [{artistFilter, albumFilter,filterTerm, genreFilter, matrixpointFilter}, dispatch] = useStateValue();
 
+  //[] replace name to id in artist and album
 
   const updaterFilterButton = (name) => {
     setFilterMenu(false);

@@ -9,11 +9,19 @@ import { storage } from '../config/firebase.config';
 
 //add lazy loading to images and text
 
-const SongCard = ({data, index, type , palace}) => {
+const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
 
   const [isDelete, setIsDelete] = useState(false);
 
   const[{songIndex, isSongPlaying, user }, dispath] = useStateValue();
+
+  const handleModalOpen = () => {
+    openModal();
+  };
+
+  const handleDataTransfer = () => {
+    trasferData(data);
+  }
 
   const deleteData = (data) => {
 
@@ -200,10 +208,26 @@ const SongCard = ({data, index, type , palace}) => {
     }
   }
 
+  //handleModalOpen
+
   return (
     <motion.div
       className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col "
-      onClick={type === "song" ? (addToContext): null}
+      onClick={() => {
+        switch (type) {
+          case "song":
+            addToContext();
+            break;
+          case "artist":
+            handleModalOpen();
+            handleDataTransfer();
+            break;
+          // Add more cases if needed
+          default:
+            // Handle the default case or do nothing
+            break;
+        }
+      }}
 
       // Add the model type to the artist and albums
     >
