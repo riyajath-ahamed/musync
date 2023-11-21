@@ -180,10 +180,9 @@ export const getAllArtist = async () => {
     }
   }
 
-  export const getSongsByArtistName = async (instagram) => {
-
+  export const getSongsByArtistName = async (name) => {
     try {
-      const res = await axios.get(`${baseURL}/api/songs/getOneName/${instagram}`);
+      const res = await axios.get(`${baseURL}/api/songs/getOneName/${name}`);
       return res.data;
     } catch (error) {
       return null;
