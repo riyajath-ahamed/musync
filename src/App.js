@@ -15,15 +15,13 @@ const App = () => {
 
   const [{user, isSongPlaying}, dispatch] = useStateValue();
 
-  
-
   const [auth, setAuth] = useState(
     false || window.localStorage.getItem("auth") === "true"
   );
 
   const isAdminUser = () => {
     if (user) {
-      return user.user.role === "admin";
+      return user.user.role === "Admin";
     }
     return false;
   }
@@ -62,7 +60,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/*" element={<Home />} />
-          {isAdminUser() && <Route path="/dashboard" element={<Dashboard />} />}
+          {isAdminUser() && <Route path="/dashboard/*" element={<Dashboard />} />}
           <Route path="/premium" element={<Premium />} />
           <Route path="/library" element={<Library />} />
           <Route path="/face" element={<Face />} />

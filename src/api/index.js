@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:4000";
+const baseURL = process.env.REACT_APP_API_BACKEND;
 
 export const validateUser= async (token) => {
 try {
@@ -168,6 +168,25 @@ export const getAllArtist = async () => {
       return null;
     }
 
+  }
+
+  export const getArtistById = async (id) => {
+
+    try {
+      const res = await axios.get(`${baseURL}/api/artist/getOne/${id}`);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  export const getSongsByArtistName = async (name) => {
+    try {
+      const res = await axios.get(`${baseURL}/api/songs/getOneName/${name}`);
+      return res.data;
+    } catch (error) {
+      return null;
+    }
   }
 
   

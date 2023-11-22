@@ -1,12 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SongCard from '../SongCard'
 import { useStateValue } from '../../context/StateProvider';
 import { getAllArtist } from '../../api';
 import { actionType } from '../../context/reducer';
+import PopupModal from './PopupModal';
 
 const ArtistContDrawer = () => {
 
     const [{allArtists}, dispatch] = useStateValue();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentData, setCurrentData] = useState([]);
+    
+
+    const trasferData = (data) => {
+      setCurrentData(data)
+    }
+
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
 
   useEffect(() => {
     //DATA. DATA ERROR IN USEEFFECT
@@ -30,11 +47,15 @@ const ArtistContDrawer = () => {
       <SongCard key={song._id}
       data={song} index={i}
       type="artist"
+      openModal = {openModal}
+      trasferData= {trasferData}
       />
     ))}
 
 
-  </div></div>
+  </div>
+  {isModalOpen && <PopupModal closeModal={closeModal} data={currentData} />}
+  </div>
   )
 }
 
