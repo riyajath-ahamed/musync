@@ -265,6 +265,8 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
         </div>
       )}
 
+      
+
       {isDelete && (
         <motion.div
           className="absolute inset-0 backdrop-blur-md bg-cardOverlay flex items-center flex-col justify-center px-4 py-2 gap-3"

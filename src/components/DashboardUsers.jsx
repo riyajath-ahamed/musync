@@ -169,8 +169,9 @@ const DashboardUsers = () => {
           </p>
 
         </div>
+        
         {/* table header*/}
-        <div className='w-full min-w-[750px] flex items-center justify-between'>
+        <div className='w-full min-w-[750px] flex items-center justify-between '>
           <p className='text-sm text-textColor font-bold min-w-[160px] text-center'>Profile</p>
           <p className='text-sm text-textColor font-bold min-w-[160px] text-center'>Name</p>
           <p className='text-sm text-textColor font-bold min-w-[160px] text-center'>Email</p>
@@ -181,6 +182,7 @@ const DashboardUsers = () => {
         </div>
 
         {/* table body*/}
+        <div className='w-full min-w-[750px] flex flex-col items-center justify-between h-600 overflow-y-auto'>
 
         {
           allUsers &&(
@@ -190,6 +192,7 @@ const DashboardUsers = () => {
           )
           )
         }
+        </div>
 
 
 

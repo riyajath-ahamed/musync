@@ -147,7 +147,7 @@ const DashboardHome = () => {
             </div>
             <div className="stat-title">Users</div>
             <div className="stat-value">{allUsers?.length > 0 ? allUsers?.length : 0}</div>
-            <div className="stat-desc">Jan 1st - Feb 1st</div>
+            <div className="stat-desc"></div>
           </div>
           
           <div className="stat">

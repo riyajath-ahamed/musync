@@ -17,6 +17,24 @@ try {
 
 };
 
+export const saveFavoriteSong = async (songId, userId) => {
+    try {
+        const res = await axios.put(`${baseURL}/api/users/updateFavorite/${userId}`, {data : {songId : songId, userId : userId}});
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+};
+
+export const removeFavoriteSong = async (songId, userId) => {
+    try {
+        const res = await axios.put(`${baseURL}/api/users/removeFavorite/${userId}`, {data : {songId : songId, userId : userId}});
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
 export const getAllUsers = async () =>{
    try {
     const res = await axios.get(`${baseURL}/api/users/getUsers`);

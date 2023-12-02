@@ -28,6 +28,7 @@ export {default as Alert} from './Alert';
 export {default as MusicPlayer} from './MusicPlayer';
 export {default as SearchBar} from './SearchBar';
 export {default as Filter} from './Filter';
+export {default as Favorites} from './Favorites';
 
 export {default as Hero} from './Hero';
 export {default as EmotionModal} from './Utils/Tools/EmotionModal';
