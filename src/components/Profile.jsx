@@ -7,7 +7,7 @@ const Profile = () => {
     const [{ user }, dispatch] = useStateValue();
 
   return (
-    <div>
+    <div className='w-full flex items-center justify-evenly flex-wrap'>
       <Header/>
       <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">

@@ -15,7 +15,7 @@ const DashboardSongs = () => {
 
 
   useEffect(() => {
-    if(!allSongs){
+    if(!allSongs || allSongs.length === 6){
       getAllSongs().then((data) => {
         dispatch({
           type: actionType.SET_ALL_SONGS,

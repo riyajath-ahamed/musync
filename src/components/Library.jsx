@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { SongContainer } from "./DashboardSongs";
 import { useStateValue } from "../context/StateProvider";
-import { getAllSongs } from "../api";
+import { getAllSongs, removeFavoriteSong, saveFavoriteSong } from "../api";
 import { actionType } from "../context/reducer";
 import SearchBar from "./SearchBar";
 
@@ -21,6 +21,7 @@ const Library = () => {
       filterTerm,
       albumFilter,
       matrixpointFilter,
+      user
     },
     dispatch,
   ] = useStateValue();
@@ -198,7 +199,16 @@ const Library = () => {
 };
 
 export const HomeSongContainer = ({ musics }) => {
-  const [{ isSongPlaying, songIndex }, dispatch] = useStateValue();
+  const [{ isSongPlaying, songIndex, user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    getAllSongs().then((data) => {
+      dispatch({
+        type: actionType.SET_ALL_SONGS,
+        allSongs: data.data,
+      });
+    });
+  }, []);
 
   const addSongToContext = (index) => {
     if (!isSongPlaying) {
@@ -214,6 +224,44 @@ export const HomeSongContainer = ({ musics }) => {
       });
     }
   };
+
+  const addfavoritesSong = (songsId, userId) =>{
+    console.log('TRIGGER>>>>>>>>>>>>>>>>',songsId, userId)
+    if (user && user.user.favorite.includes(songsId)){
+      removeFavoriteSong(songsId, userId)
+      .then((res) => {
+        console.log('RES>>>>>>>>>>>>>>>>',res)
+        if(res){
+          dispatch({
+            
+            user: {
+              ...user.user,
+              favorite: res.data.favorite
+            },
+          });
+        }
+      })
+      return;
+    } else {
+    saveFavoriteSong(songsId, userId)
+    .then((res) => {
+      console.log('RES>>>>>>>>>>>>>>>>',res)
+      if(res){
+        dispatch({
+          
+          user: {
+            ...user.user,
+            favorite: res.data.favorite
+          },
+        });
+      }
+    })
+    }
+  }
+
+
+
+  
   return (
     <>
       {musics?.map((data, index) => (
@@ -222,7 +270,7 @@ export const HomeSongContainer = ({ musics }) => {
           whileTap={{ scale: 0.8 }}
           initial={{ opacity: 0, translateX: -50 }}
           animate={{ opacity: 1, translateX: 0 }}
-          transition={{ duration: 0.3, delay: index * 0.1 }}
+          transition={{ duration: 0.1, delay: index * 0.01 }}
           className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col"
           onClick={() => addSongToContext(index)}
         >
@@ -236,11 +284,24 @@ export const HomeSongContainer = ({ musics }) => {
           </div>
 
           <p className="text-base text-headingColor font-semibold my-2 ">
-            {data.name.length > 25 ? `${data.name.slice(0, 25)}` : data.name}
+            {data.name.length > 20 ? `${data.name.slice(0, 20)}` : data.name}
             <span className="block text-sm text-gray-400 my-1">
               {data.artist}
             </span>
           </p>
+          <p className="absolute hover:scale-150 hover:shadow-sm bottom-1 right-3 z-10 ease-in-out duration-300">
+              <button className="" onClick={() => addfavoritesSong(data._id, user.user._id)}>
+                {user && user.user.favorite.includes(data._id) ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M5.74 16c.11-.49-.09-1.19-.44-1.54l-2.43-2.43c-.76-.76-1.06-1.57-.84-2.27.23-.7.94-1.18 2-1.36l3.12-.52c.45-.08 1-.48 1.21-.89l1.72-3.45C10.58 2.55 11.26 2 12 2s1.42.55 1.92 1.54l1.72 3.45c.13.26.4.51.69.68L5.56 18.44c-.14.14-.38.01-.34-.19L5.74 16ZM18.7 14.462c-.36.36-.56 1.05-.44 1.54l.69 3.01c.29 1.25.11 2.19-.51 2.64a1.5 1.5 0 0 1-.9.27c-.51 0-1.11-.19-1.77-.58l-2.93-1.74c-.46-.27-1.22-.27-1.68 0l-2.93 1.74c-1.11.65-2.06.76-2.67.31-.23-.17-.4-.4-.51-.7l12.16-12.16c.46-.46 1.11-.67 1.74-.56l1.01.17c1.06.18 1.77.66 2 1.36.22.7-.08 1.51-.84 2.27l-2.42 2.43Z" fill="#FF8A65"></path>
+                </svg>
+                ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="m13.73 3.51 1.76 3.52c.24.49.88.96 1.42 1.05l3.19.53c2.04.34 2.52 1.82 1.05 3.28l-2.48 2.48c-.42.42-.65 1.23-.52 1.81l.71 3.07c.56 2.43-.73 3.37-2.88 2.1l-2.99-1.77c-.54-.32-1.43-.32-1.98 0l-2.99 1.77c-2.14 1.27-3.44.32-2.88-2.1l.71-3.07c.13-.58-.1-1.39-.52-1.81l-2.48-2.48c-1.46-1.46-.99-2.94 1.05-3.28l3.19-.53c.53-.09 1.17-.56 1.41-1.05l1.76-3.52c.96-1.91 2.52-1.91 3.47 0Z" stroke="#FF8A65" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                )}
+              </button>
+            </p>
         </motion.div>
       ))}
     </>
