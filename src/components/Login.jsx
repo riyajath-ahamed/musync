@@ -91,7 +91,7 @@ const Login = ({setAuth}) => {
           </div>
 
 
-          <div>
+          {/* <div>
             <div className="bg-white rounded-lg overflow-hidden shadow-2xl px-8 p-5">
                 
                 <label for="email" className="block mb-2 text-2xl font-semibold bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent">Login</label>
@@ -112,12 +112,12 @@ const Login = ({setAuth}) => {
                 <div className="flex flex-col justify-center items-center p-4 gap-2 text-base border-t border-gray-300 bg-white">
                   <hr/>
                     
-                    {/* <p className="text-gray-600">Forgot password?</p> */}
+                     <p className="text-gray-600">Forgot password?</p> 
                     <p className="font-medium text-white w-full text-center cursor-pointer bg-indigo-300 p-2 rounded-lg "><NavLink to={"/signup"}>Create account</NavLink></p>
                 </div>
             </div>
             
-          </div>
+          </div> */}
           
           <div 
           onClick={loginWithGoogle} 
