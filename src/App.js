@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate   } from "react-router-dom";
 import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer, Library, Profile } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
@@ -54,19 +54,28 @@ const App = () => {
     });
   }, []);
 
+  const isAdmin = isAdminUser();
+
   return (
     <AnimatePresence exitBeforeEnter>
       <div className="h-auto min-w-[680px] bg-primary flex justify-center items-center">
         <Routes>
-          <Route path="/login" element={<Login setAuth={setAuth} />} />
+        {auth ? (
+        <>
           <Route path="/*" element={<Home />} />
-          {isAdminUser() && <Route path="/dashboard/*" element={<Dashboard />} />}
+          {isAdmin && (
+            <Route path="/dashboard/*" element={<Dashboard />} />
+          )}
           <Route path="/premium" element={<Premium />} />
           <Route path="/library" element={<Library />} />
           <Route path="/face" element={<Face />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/userProfile" element={<Profile />} />
+        </>
+      ) : (
+        <Route path="/login" element={<Login setAuth={setAuth} />} />
+      )}
         </Routes>
 
         {isSongPlaying && (
