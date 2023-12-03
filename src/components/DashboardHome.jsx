@@ -135,12 +135,14 @@ const DashboardHome = () => {
   const wordchartRef = useRef(null);
   const matrixGraphRef = useRef(null);
   const matrixHeatChart = useRef(null);
+  const songsTbale = useRef(null);
 
   useEffect(() => {
     const chartId = '63f0dee2-ad08-4c02-8bd6-243a65de512d';
     const wordchartId = '652156fd-0c0f-433d-8eee-144e9953a29d';
     const matrixGraphId = '6506f1f0-1b75-42e0-82cf-365b47e5fb8e';
     const matrixHeatChartId = '65215934-517e-493b-89b7-a7f1a2041ccb'
+    const songsTbaleId= '656cac2a-4b93-4e4f-80c8-1c6d6407079c'
 
     const createChart = (chartId) => sdk.current.createChart({ chartId, autoRefresh: true });
 
@@ -158,6 +160,7 @@ const DashboardHome = () => {
     renderChart(wordchartRef, 'wchart', wordchartId);
     renderChart(matrixGraphRef, 'mGraph', matrixGraphId);
     renderChart(matrixHeatChart, 'mHeat', matrixHeatChartId);
+    renderChart(songsTbale, 'mTable', songsTbaleId);
 
     // Fetch data if needed (similar to your existing logic)
 
@@ -234,6 +237,7 @@ const DashboardHome = () => {
     <div className='w-full bg-white rounded-md flex flex-wrap justify-evenly'>
     <div id='mGraph' style={{ width: 500, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
     <div id='mHeat' style={{ width: 500, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
+    <div id='mTable' style={{ width: 1000, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
     </div>
     
     </div>
