@@ -32,34 +32,35 @@ export const DashboardCard = ({icon, name, count}) => {
 
 };
 
-const sdk = new ChartsEmbedSDK({
-  baseUrl: 'https://charts.mongodb.com/charts-project-0-uoxvc',
-});
+// const sdk = new ChartsEmbedSDK({
+//   baseUrl: 'https://charts.mongodb.com/charts-project-0-uoxvc',
+// });
 
-// embed a chart
-const chart = sdk.createChart({
-chartId: '63f0dee2-ad08-4c02-8bd6-243a65de512d',
-autoRefresh : true,
+// // embed a chart
+// const chart = sdk.createChart({
+// chartId: '63f0dee2-ad08-4c02-8bd6-243a65de512d',
+// autoRefresh : true,
 
-});
+// });
 
-const wordchart = sdk.createChart({
-  chartId: '63f30435-3f54-4215-8be1-affaab72407a',
-  autoRefresh : true,
+// const wordchart = sdk.createChart({
+//   chartId: '63f30435-3f54-4215-8be1-affaab72407a',
+//   autoRefresh : true,
   
-});
+// });
 
-const matrixGraph = sdk.createChart({
-  chartId: '6506f1f0-1b75-42e0-82cf-365b47e5fb8e',
-  autoRefresh : true,
+// const matrixGraph = sdk.createChart({
+//   chartId: '6506f1f0-1b75-42e0-82cf-365b47e5fb8e',
+//   autoRefresh : true,
   
-});
+// });
 
 
  
 const DashboardHome = () => {
 
   const [{allUsers,allSongs,allArtists,allAlbums }, dispatch] = useStateValue();
+  
 
   
 
@@ -111,28 +112,66 @@ const DashboardHome = () => {
   }, [])
 
 
+  // useEffect(() => {
+  //   chart
+  //   .render(document.getElementById('chart'))
+  //   .catch();
+
+  //   wordchart
+  //   .render(document.getElementById('wchart'))
+  //   .catch();
+
+  //   matrixGraph
+  //   .render(document.getElementById('mGraph'))
+  //   .catch();
+  // }, [])
+
+
+  const sdk = useRef(new ChartsEmbedSDK({
+    baseUrl: 'https://charts.mongodb.com/charts-project-0-uoxvc',
+  }));
+
+  const chartRef = useRef(null);
+  const wordchartRef = useRef(null);
+  const matrixGraphRef = useRef(null);
+  const matrixHeatChart = useRef(null);
+
   useEffect(() => {
-    chart
-    .render(document.getElementById('chart'))
-    .catch();
+    const chartId = '63f0dee2-ad08-4c02-8bd6-243a65de512d';
+    const wordchartId = '652156fd-0c0f-433d-8eee-144e9953a29d';
+    const matrixGraphId = '6506f1f0-1b75-42e0-82cf-365b47e5fb8e';
+    const matrixHeatChartId = '65215934-517e-493b-89b7-a7f1a2041ccb'
 
-    wordchart
-    .render(document.getElementById('wchart'))
-    .catch();
+    const createChart = (chartId) => sdk.current.createChart({ chartId, autoRefresh: true });
 
-    matrixGraph
-    .render(document.getElementById('mGraph'))
-    .catch();
-  }, [allSongs])
+    const renderChart = (chartRef, elementId, chartId) => {
+      if (!chartRef.current) {
+        chartRef.current = createChart(chartId);
+      } else {
+        chartRef.current.render(document.getElementById(elementId)).catch((error) => {
+          console.error('Chart rendering error:', error);
+        });
+      }
+    };
+
+    renderChart(chartRef, 'chart', chartId);
+    renderChart(wordchartRef, 'wchart', wordchartId);
+    renderChart(matrixGraphRef, 'mGraph', matrixGraphId);
+    renderChart(matrixHeatChart, 'mHeat', matrixHeatChartId);
+
+    // Fetch data if needed (similar to your existing logic)
+
+  }, [allUsers, allSongs, allArtists, allAlbums]);
+
   
 
   return (
     <div>
     <div className='w-full p-6 flex items-center justify-evenly flex-wrap'>
-        <DashboardCard icon={<FaUser className="text-3xl text-slate-300 drop-shadow-md" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0}/>
+        {/* <DashboardCard icon={<FaUser className="text-3xl text-slate-300 drop-shadow-md" />} name={"Users"} count={allUsers?.length > 0 ? allUsers?.length : 0}/>
         <DashboardCard icon={ songicon} name={"Songs"} count={allSongs?.length > 0 ? allSongs?.length : 0} />
         <DashboardCard icon={<RiUserStarFill className="text-3xl text-slate-300 drop-shadow-md" />} name={"Artist"} count={allArtists?.length > 0 ? allArtists?.length : 0} />
-        <DashboardCard icon={<IoIosAlbums className="text-3xl text-slate-300 drop-shadow-md" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/>
+        <DashboardCard icon={<IoIosAlbums className="text-3xl text-slate-300 drop-shadow-md" />} name={"Album"} count={allAlbums?.length > 0 ? allAlbums?.length : 0}/> */}
 
 
         <div className="stats shadow">
@@ -180,6 +219,10 @@ const DashboardHome = () => {
           </div>
           
         </div>
+
+        
+
+
     </div>
 
     
@@ -188,7 +231,10 @@ const DashboardHome = () => {
     <div id='chart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
     <div id='wchart' style={{ width: 300, height: 300}} className="rounded-lg  hover:shadow-orange-500"></div>
     </div>
+    <div className='w-full bg-white rounded-md flex flex-wrap justify-evenly'>
     <div id='mGraph' style={{ width: 500, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
+    <div id='mHeat' style={{ width: 500, height: 500}} className="rounded-lg  hover:shadow-orange-500"></div>
+    </div>
     
     </div>
 

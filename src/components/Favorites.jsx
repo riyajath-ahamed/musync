@@ -40,9 +40,9 @@ const Favorites = () => {
                     <th>
                     
                     </th>
-                    <th>Name</th>
-                    <th>Job</th>
-                    <th>Favorite Color</th>
+                    <th>Name & Artist</th>
+                    <th>Album</th>
+                    <th>Genre</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -91,6 +91,7 @@ export const FavoriteRow = (fav) =>{
             allSongs: data.data,
           });
         });
+
     }, []);
 
     const song = allSongs && allSongs.find((song) => song._id === fav);
@@ -120,7 +121,7 @@ export const FavoriteRow = (fav) =>{
                     <td>
                     {song.album}
                     <br/>
-                    <span className="badge badge-ghost badge-sm">Postive Rating -{song.positiveRating} Exciting Rating -{song.excitingRating}</span>
+                    <span className="badge badge-ghost badge-sm">Postive Rating -{song.positiveRating} |  Exciting Rating -{song.excitingRating}</span>
                     </td>
                     <td>{song.genre}</td>
                     <th>
