@@ -23,19 +23,36 @@ const SongContainerDrawer = ({musics, drawerName}) => {
       }
     }, []);
 
-    const addSongToContext = (index) => {
+    const addSongToContext = (data) => {
         if (!isSongPlaying) {
           dispatch({
             type: actionType.SET_ISSONG_PLAYING,
             isSongPlaying: true,
           });
         }
-        if (songIndex !== index) {
+
+        if(songIndex.name !== data.name ){ 
+          const currentSong = {
+            id: data._id,
+            songURL: data.songURL,
+            imageURL: data.imageURL,
+            name:data.name,
+            album: data.album,
+            artist: data.artist,
+            genre: data.genre,
+    };
           dispatch({
             type: actionType.SET_SONG_INDEX,
-            songIndex: index,
-          });
+            songIndex:currentSong ,
+          })
+
+          dispatch({
+            type: actionType.SET_PLAYLIST,
+            songs:currentSong ,
+          })
         }
+
+        
       };
 
   return (
@@ -48,7 +65,7 @@ const SongContainerDrawer = ({musics, drawerName}) => {
         animate={{ opacity: 1, translateX: 0 }}
         transition={{ duration: 0.3, delay: index * 0.1 }}
         className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col"
-        onClick={() => addSongToContext(index)}
+        onClick={() => addSongToContext(data)}
       >
         <div className="w-48 min-w-[160px] h-48 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden items-center">
           <motion.img

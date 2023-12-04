@@ -192,7 +192,7 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
 
   }
 
-  const addToContext =() =>{
+  const addToContext =(data) =>{
     if(!isSongPlaying){
       dispath({
         type: actionType.SET_ISSONG_PLAYING,
@@ -200,12 +200,29 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
       })
     }
 
-    if(songIndex !== index){ 
+    if(songIndex.name !== data.name ){ 
+      const currentSong = {
+        id: data._id,
+        songURL: data.songURL,
+        imageURL: data.imageURL,
+        name:data.name,
+        album: data.album,
+        artist: data.artist,
+        genre: data.genre,
+};
       dispath({
         type: actionType.SET_SONG_INDEX,
-        songIndex: index,
+        songIndex:currentSong ,
+      })
+
+      dispath({
+        type: actionType.SET_PLAYLIST,
+        songs:currentSong ,
       })
     }
+
+   
+
   }
 
   //handleModalOpen
@@ -216,7 +233,7 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
       onClick={() => {
         switch (type) {
           case "song":
-            addToContext();
+            addToContext(data);
             break;
           case "artist":
             handleModalOpen();

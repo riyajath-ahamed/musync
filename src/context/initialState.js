@@ -14,9 +14,7 @@ export const initialState = {
     newSongs:null,
 
     isSongPlaying : false,
-    songIndex : 0
-    
-
-
+    songIndex : [],
+    playlist: [],
 
 }
