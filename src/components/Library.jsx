@@ -201,6 +201,7 @@ const Library = () => {
 export const HomeSongContainer = ({ musics }) => {
   const [{ isSongPlaying, songIndex, user }, dispatch] = useStateValue();
 
+
   useEffect(() => {
     getAllSongs().then((data) => {
       dispatch({
@@ -210,27 +211,40 @@ export const HomeSongContainer = ({ musics }) => {
     });
   }, []);
 
-  const addSongToContext = (index) => {
+  const addSongToContext = (data) => {
     if (!isSongPlaying) {
       dispatch({
         type: actionType.SET_ISSONG_PLAYING,
         isSongPlaying: true,
       });
     }
-    if (songIndex !== index) {
+
+    if(songIndex.name !== data.name ){ 
+      const currentSong = {
+        id: data._id,
+        songURL: data.songURL,
+        imageURL: data.imageURL,
+        name:data.name,
+        album: data.album,
+        artist: data.artist,
+        genre: data.genre,
+};
       dispatch({
         type: actionType.SET_SONG_INDEX,
-        songIndex: index,
-      });
-    }
+        songIndex:currentSong ,
+      })
+
+      dispatch({
+        type: actionType.SET_PLAYLIST,
+        songs:currentSong ,
+      })
   };
+}
 
   const addfavoritesSong = (songsId, userId) =>{
-    console.log('TRIGGER>>>>>>>>>>>>>>>>',songsId, userId)
     if (user && user.user.favorite.includes(songsId)){
       removeFavoriteSong(songsId, userId)
       .then((res) => {
-        console.log('RES>>>>>>>>>>>>>>>>',res)
         if(res){
           dispatch({
             
@@ -245,7 +259,6 @@ export const HomeSongContainer = ({ musics }) => {
     } else {
     saveFavoriteSong(songsId, userId)
     .then((res) => {
-      console.log('RES>>>>>>>>>>>>>>>>',res)
       if(res){
         dispatch({
           
@@ -260,6 +273,25 @@ export const HomeSongContainer = ({ musics }) => {
   }
 
 
+  const addtoPlaylist = (data) =>{
+    ///work on thidss
+    const currentSong = {
+      id: data._id,
+      songURL: data.songURL,
+      imageURL: data.imageURL,
+      name:data.name,
+      album: data.album,
+      artist: data.artist,
+      genre: data.genre,
+};
+    dispatch({
+      type: actionType.SET_PLAYLIST,
+      songs:currentSong ,
+    })
+    
+  }
+
+
 
   
   return (
@@ -267,23 +299,35 @@ export const HomeSongContainer = ({ musics }) => {
       {musics?.map((data, index) => (
         <motion.div
           key={data._id}
-          whileTap={{ scale: 0.8 }}
           initial={{ opacity: 0, translateX: -50 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 0.1, delay: index * 0.01 }}
           className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col"
-          onClick={() => addSongToContext(index)}
+          
         >
+          <div className="absolute z-30 dropdown dropdown-bottom dropdown-end bg-gray-100 hover:bg-white rounded-xl top-1 right-1">
+            <div tabIndex={0} role="button" className=" m-1 p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="#697689" stroke-width="1.5" stroke-linecap="round"></path></svg>
+            </div>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              {/* <li><a>Play Next</a></li> */}
+              <li onClick={() =>addtoPlaylist(data)}><a>Add to Playlist</a></li>
+            </ul>
+          </div>
+          
+          
+
           <div className="w-48 min-w-[160px] h-48 min-h-[160px] rounded-lg drop-shadow-lg relative overflow-hidden items-center">
             <motion.img
               whileHover={{ scale: 1.05 }}
               src={data.imageURL}
               alt=""
               className=" w-full h-full rounded-lg object-cover"
+              onClick={() => addSongToContext(data)}
             />
           </div>
 
-          <p className="text-base text-headingColor font-semibold my-2 ">
+          <p className="text-base text-headingColor font-semibold my-2 hover:underline " onClick={() => addSongToContext(data)}>
             {data.name.length > 20 ? `${data.name.slice(0, 20)}` : data.name}
             <span className="block text-sm text-gray-400 my-1">
               {data.artist}

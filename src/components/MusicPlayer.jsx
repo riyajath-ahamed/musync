@@ -11,39 +11,45 @@ import { actionType } from '../context/reducer';
 import { IoClose, IoMusicalNote } from 'react-icons/io5';
 
 const MusicPlayer = () => {
-    const [{allSongs, isSongPlaying,  songIndex }, dispath] = useStateValue();
+    const [{allSongs, isSongPlaying,  songIndex, playlist }, dispath] = useStateValue();
 
     const [isPlayList, setIsPlayList] = useState(false);
 
-    const nextTrack =() => {
+    const closePlaylistModal= () => {
+      setIsPlayList(false)
+    }
 
-        if (songIndex >= allSongs.length - 1) {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: 0,
-            });
-          } else {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: songIndex + 1,
-            });
+    const nextTrack =(id) => {
+
+        if(playlist.length > 1){
+          const currentIndex = playlist.findIndex(song => song.id === id);
+          let nextIndex = currentIndex + 1;
+          if (nextIndex >= playlist.length) {
+            nextIndex = 0;
           }
+          const nextSong = playlist[nextIndex];
+          dispath({
+            type: actionType.SET_SONG_INDEX,
+            songIndex:nextSong ,
+          })
+        }
 
     }
 
-    const previousTrack =() => {
+    const previousTrack =(id) => {
 
-        if (songIndex === 0) {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: 0,
-            });
-          } else {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: songIndex - 1,
-            });
+        if(playlist.length > 1){
+          const currentIndex = playlist.findIndex(song => song.id === id);
+          let nextIndex = currentIndex - 1;
+          if (nextIndex < 0) {
+            nextIndex =  playlist.length - 1;
           }
+          const nextSong = playlist[nextIndex];
+          dispath({
+            type: actionType.SET_SONG_INDEX,
+            songIndex:nextSong ,
+          })
+        }
         
     }
 
@@ -53,6 +59,11 @@ const MusicPlayer = () => {
               type: actionType.SET_ISSONG_PLAYING,
               isSongPlaying: false,
             });
+
+            dispath({
+              type: actionType.SET_PLAYLIST,
+              songs:null ,
+            })
           }
     }
 
@@ -71,27 +82,31 @@ const MusicPlayer = () => {
   return (
     <div className='w-full flex items-center gap-3 '>
         <div className={`w-full items-center gap-3 p-4 flex relative`}>
-            <img src={allSongs[songIndex]?.imageURL} 
+            <img src={songIndex.imageURL} 
             alt='SongImage' 
             className='w-40 h-20 object-cover rounded-md' />
 
         <div className='flex items-start flex-col'>
 
+        {songIndex && songIndex.name && (
             <p className='text-xl text-headingColor font-semibold'>
-                {`${
-                    allSongs[songIndex]?.name.length > 20
-                    ? allSongs[songIndex]?.name.slice(0, 20)
-                    : allSongs[songIndex]?.name
-                }`}{" - "}
-                <span className='text-base'>{allSongs[songIndex]?.album}</span>
+                {/* {`${
+                    songIndex.name.length > 20
+                    ? songIndex.name.slice(0, 20)
+                    : songIndex.name
+                }`}{" - "} */}
+                
+                 {`${songIndex.name.length > 20 ? songIndex.name.slice(0, 20) : songIndex.name}`}{" - "}
+                <span className='text-base'>{songIndex.album}</span>
 
 
             </p>
+        )}
 
             <p className='text-textColor font-semibold text-base'>
-                {allSongs[songIndex]?.artist}{" - "}
+                {songIndex.artist}{" - "}
                 <span className='text-sm text-textColor font-normal'>
-                    {allSongs[songIndex]?.genre}
+                    {songIndex.genre}
 
                 </span>
             </p>
@@ -110,14 +125,14 @@ const MusicPlayer = () => {
 
         <div className='flex-1'>
             <AudioPlayer
-             src={allSongs[songIndex]?.songURL}
+             src={songIndex.songURL}
              onPlay={() => nowPlaying()} //add a alert for now playing
              autoPlay={true} //make true
              showSkipControls={true}
              showJumpControls={false}
              volume={0.5}
-             onClickNext={nextTrack}
-             onClickPrevious={previousTrack}
+             onClickNext={() =>nextTrack(songIndex.id)}
+             onClickPrevious={() => previousTrack(songIndex.id)}
 
             />
             
@@ -125,7 +140,7 @@ const MusicPlayer = () => {
         </div>
         {
             isPlayList && (
-                <PlaylistCard />
+                <PlaylistCard closePlaylistModal={closePlaylistModal}/>
             )
         }
 
@@ -142,8 +157,15 @@ const MusicPlayer = () => {
   )
 }
 
-export const PlaylistCard = () => {
-    const [{allSongs, isSongPlaying,  songIndex }, dispath] = useStateValue();
+export const PlaylistCard = ({closePlaylistModal }) => {
+    const [{allSongs, playlist, isSongPlaying,  songIndex }, dispath] = useStateValue();
+
+    const [isPlayListOpen, setIsPlayList] = useState(false);
+    const [activeDialog, setActiveDialog] = useState(false);
+
+    const closeModal = () => {
+      closePlaylistModal();
+    };
 
     useEffect(() => {
         if(!allSongs){
@@ -159,7 +181,7 @@ export const PlaylistCard = () => {
       }, []);
 
 
-      const setCurrentPlaySong = (index) => {
+      const setCurrentPlaySong = (data) => {
         if(!isSongPlaying){
             dispath({
               type: actionType.SET_ISSONG_PLAYING,
@@ -167,11 +189,19 @@ export const PlaylistCard = () => {
             })
           }
       
-          if(songIndex !== index){
+          if(songIndex.name !== data.name ){ 
+            const currentSong = {
+              id: data._id,
+              songURL: data.songURL,
+              imageURL: data.imageURL,
+              name:data.name,
+              album: data.album,
+              artist: data.artist,
+              genre: data.genre,
+      };
             dispath({
               type: actionType.SET_SONG_INDEX,
-              songIndex: index,
-      
+              songIndex:currentSong ,
             })
           }
       };
@@ -180,8 +210,14 @@ export const PlaylistCard = () => {
 
     return(
         <div className='absolute left-4 bottom-24 gap-2 py-2 w-350 max-w-[350px] h-510 max-h-[510px] flex flex-col overflow-y-scroll rounded-md shadow-md bg-primary'>
-           {allSongs.length > 0 ?(
-            allSongs.map((music, index) =>(
+           
+           <button className='px-3 py-1  bg-white rounded-full inline-block hover:shadow-lg' onClick={() =>closeModal()}>
+              <svg className='inline-block px-1' xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              Close Playlist
+            </button>
+
+           {playlist.length > 0 ?(
+            playlist.map((music, index) =>(
                 <motion.div 
                 initial ={{opacity :0 ,translateX : -50}}
                 animate={{opacity: 1, translateX : 0 }}
@@ -189,9 +225,11 @@ export const PlaylistCard = () => {
 
                 className='group w-full p-4 hover:bg-card flex gap-3 items-center cursor-pointer bg-transparent'
 
-                onClick={() => setCurrentPlaySong(index)}
+                onClick={() => setCurrentPlaySong(music)}
                 key={index}
                 >
+
+                
 
               <IoMusicalNote className="text-textColor group-hover:text-headingColor text-2xl cursor-pointer" />
 
