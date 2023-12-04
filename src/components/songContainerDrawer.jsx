@@ -24,7 +24,6 @@ const SongContainerDrawer = ({musics, drawerName}) => {
     }, []);
 
     const addSongToContext = (data) => {
-      console.log('>>>>>>>>>>>... 8546',data);
         if (!isSongPlaying) {
           dispatch({
             type: actionType.SET_ISSONG_PLAYING,
@@ -46,7 +45,14 @@ const SongContainerDrawer = ({musics, drawerName}) => {
             type: actionType.SET_SONG_INDEX,
             songIndex:currentSong ,
           })
+
+          dispatch({
+            type: actionType.SET_PLAYLIST,
+            songs:currentSong ,
+          })
         }
+
+        
       };
 
   return (

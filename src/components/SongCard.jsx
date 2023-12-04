@@ -193,7 +193,6 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
   }
 
   const addToContext =(data) =>{
-    console.log('>>>>>>>>>>>... 8546',data);
     if(!isSongPlaying){
       dispath({
         type: actionType.SET_ISSONG_PLAYING,
@@ -215,7 +214,15 @@ const SongCard = ({data, index, type , palace, openModal , trasferData }) => {
         type: actionType.SET_SONG_INDEX,
         songIndex:currentSong ,
       })
+
+      dispath({
+        type: actionType.SET_PLAYLIST,
+        songs:currentSong ,
+      })
     }
+
+   
+
   }
 
   //handleModalOpen
