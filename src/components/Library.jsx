@@ -212,7 +212,6 @@ export const HomeSongContainer = ({ musics }) => {
   }, []);
 
   const addSongToContext = (data) => {
-    console.log(">>>>>>>>>>> front 8546", data);
     if (!isSongPlaying) {
       dispatch({
         type: actionType.SET_ISSONG_PLAYING,
@@ -234,15 +233,18 @@ export const HomeSongContainer = ({ musics }) => {
         type: actionType.SET_SONG_INDEX,
         songIndex:currentSong ,
       })
+
+      dispatch({
+        type: actionType.SET_PLAYLIST,
+        songs:currentSong ,
+      })
   };
 }
 
   const addfavoritesSong = (songsId, userId) =>{
-    console.log('TRIGGER>>>>>>>>>>>>>>>>',songsId, userId)
     if (user && user.user.favorite.includes(songsId)){
       removeFavoriteSong(songsId, userId)
       .then((res) => {
-        console.log('RES>>>>>>>>>>>>>>>>',res)
         if(res){
           dispatch({
             
@@ -257,7 +259,6 @@ export const HomeSongContainer = ({ musics }) => {
     } else {
     saveFavoriteSong(songsId, userId)
     .then((res) => {
-      console.log('RES>>>>>>>>>>>>>>>>',res)
       if(res){
         dispatch({
           
@@ -271,10 +272,23 @@ export const HomeSongContainer = ({ musics }) => {
     }
   }
 
-  const addtoPlaylist = (data) =>{
-    console.log('>>>>>>>>>>>>>>>>>> 4454545,',data)
-    ///work on thidss
 
+  const addtoPlaylist = (data) =>{
+    ///work on thidss
+    const currentSong = {
+      id: data._id,
+      songURL: data.songURL,
+      imageURL: data.imageURL,
+      name:data.name,
+      album: data.album,
+      artist: data.artist,
+      genre: data.genre,
+};
+    dispatch({
+      type: actionType.SET_PLAYLIST,
+      songs:currentSong ,
+    })
+    
   }
 
 
@@ -291,12 +305,12 @@ export const HomeSongContainer = ({ musics }) => {
           className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col"
           
         >
-          <div className="absolute z-30 dropdown dropdown-bottom dropdown-end bg-gray-100 rounded-xl top-1 right-1">
+          <div className="absolute z-30 dropdown dropdown-bottom dropdown-end bg-gray-100 hover:bg-white rounded-xl top-1 right-1">
             <div tabIndex={0} role="button" className=" m-1 p-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="#697689" stroke-width="1.5" stroke-linecap="round"></path></svg>
             </div>
             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Play Next</a></li>
+              {/* <li><a>Play Next</a></li> */}
               <li onClick={() =>addtoPlaylist(data)}><a>Add to Playlist</a></li>
             </ul>
           </div>

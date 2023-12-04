@@ -12,53 +12,44 @@ import { IoClose, IoMusicalNote } from 'react-icons/io5';
 
 const MusicPlayer = () => {
     const [{allSongs, isSongPlaying,  songIndex, playlist }, dispath] = useStateValue();
-    console.log('>>>>>>>>>>>>>>>>>>, 8546',songIndex);
 
     const [isPlayList, setIsPlayList] = useState(false);
 
-    const nextTrack =() => {
+    const closePlaylistModal= () => {
+      setIsPlayList(false)
+    }
 
-        // if (songIndex >= allSongs.length - 1) {
-        //     dispath({
-        //       type: actionType.SET_SONG_INDEX,
-        //       songIndex: 0,
-        //     });
-        //   } else {
-        //     dispath({
-        //       type: actionType.SET_SONG_INDEX,
-        //       songIndex: songIndex + 1,
-        //     });
-        //   }
+    const nextTrack =(id) => {
 
-        if(playlist.length > 0){
-            if (songIndex >= playlist.length - 1) {
-                dispath({
-                  type: actionType.SET_SONG_INDEX,
-                  songIndex: 0,
-                });
-              } else {
-                dispath({
-                  type: actionType.SET_SONG_INDEX,
-                  songIndex: songIndex + 1,
-                });
-              }
+        if(playlist.length > 1){
+          const currentIndex = playlist.findIndex(song => song.id === id);
+          let nextIndex = currentIndex + 1;
+          if (nextIndex >= playlist.length) {
+            nextIndex = 0;
+          }
+          const nextSong = playlist[nextIndex];
+          dispath({
+            type: actionType.SET_SONG_INDEX,
+            songIndex:nextSong ,
+          })
         }
 
     }
 
-    const previousTrack =() => {
+    const previousTrack =(id) => {
 
-        // if (songIndex === 0) {
-        //     dispath({
-        //       type: actionType.SET_SONG_INDEX,
-        //       songIndex: 0,
-        //     });
-        //   } else {
-        //     dispath({
-        //       type: actionType.SET_SONG_INDEX,
-        //       songIndex: songIndex - 1,
-        //     });
-        //   }
+        if(playlist.length > 1){
+          const currentIndex = playlist.findIndex(song => song.id === id);
+          let nextIndex = currentIndex - 1;
+          if (nextIndex < 0) {
+            nextIndex =  playlist.length - 1;
+          }
+          const nextSong = playlist[nextIndex];
+          dispath({
+            type: actionType.SET_SONG_INDEX,
+            songIndex:nextSong ,
+          })
+        }
         
     }
 
@@ -68,6 +59,11 @@ const MusicPlayer = () => {
               type: actionType.SET_ISSONG_PLAYING,
               isSongPlaying: false,
             });
+
+            dispath({
+              type: actionType.SET_PLAYLIST,
+              songs:null ,
+            })
           }
     }
 
@@ -135,8 +131,8 @@ const MusicPlayer = () => {
              showSkipControls={true}
              showJumpControls={false}
              volume={0.5}
-             onClickNext={nextTrack}
-             onClickPrevious={previousTrack}
+             onClickNext={() =>nextTrack(songIndex.id)}
+             onClickPrevious={() => previousTrack(songIndex.id)}
 
             />
             
@@ -144,7 +140,7 @@ const MusicPlayer = () => {
         </div>
         {
             isPlayList && (
-                <PlaylistCard />
+                <PlaylistCard closePlaylistModal={closePlaylistModal}/>
             )
         }
 
@@ -161,8 +157,15 @@ const MusicPlayer = () => {
   )
 }
 
-export const PlaylistCard = () => {
+export const PlaylistCard = ({closePlaylistModal }) => {
     const [{allSongs, playlist, isSongPlaying,  songIndex }, dispath] = useStateValue();
+
+    const [isPlayListOpen, setIsPlayList] = useState(false);
+    const [activeDialog, setActiveDialog] = useState(false);
+
+    const closeModal = () => {
+      closePlaylistModal();
+    };
 
     useEffect(() => {
         if(!allSongs){
@@ -207,6 +210,12 @@ export const PlaylistCard = () => {
 
     return(
         <div className='absolute left-4 bottom-24 gap-2 py-2 w-350 max-w-[350px] h-510 max-h-[510px] flex flex-col overflow-y-scroll rounded-md shadow-md bg-primary'>
+           
+           <button className='px-3 py-1  bg-white rounded-full inline-block hover:shadow-lg' onClick={() =>closeModal()}>
+              <svg className='inline-block px-1' xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              Close Playlist
+            </button>
+
            {playlist.length > 0 ?(
             playlist.map((music, index) =>(
                 <motion.div 
@@ -219,6 +228,8 @@ export const PlaylistCard = () => {
                 onClick={() => setCurrentPlaySong(music)}
                 key={index}
                 >
+
+                
 
               <IoMusicalNote className="text-textColor group-hover:text-headingColor text-2xl cursor-pointer" />
 
