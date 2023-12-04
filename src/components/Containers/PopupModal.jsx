@@ -12,7 +12,6 @@ const PopupModal = ({ closeModal, data }) => {
 
   useEffect(() => {
     if (data) {
-      console.log("w64a8d4848name", data);
       getSongsByArtistName(data.name).then((res) => {
         setSongTableData(res.song);
       });

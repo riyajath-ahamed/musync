@@ -128,18 +128,18 @@ const reducer = (state, action) => {
 
         case actionType.SET_PLAYLIST:
             // Assuming action contains all required properties
-            const newSong = {
-                id: songId,
-                songURL: songURL,
-                name: name,
-                imageURL: imageURL,
-                album: album,
-                artist: artist,
-                genre: genre
-            };
+            // const newSong = {
+            //     id: songId,
+            //     songURL: songURL,
+            //     name: name,
+            //     imageURL: imageURL,
+            //     album: album,
+            //     artist: artist,
+            //     genre: genre
+            // };
             return {
                 ...state,
-                playlist: [...state.playlist, newSong],
+                playlist: [...state.playlist, action.songs],
             };
             
         case actionType.SET_SEARCH_TERM:
