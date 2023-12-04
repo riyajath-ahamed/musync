@@ -11,39 +11,54 @@ import { actionType } from '../context/reducer';
 import { IoClose, IoMusicalNote } from 'react-icons/io5';
 
 const MusicPlayer = () => {
-    const [{allSongs, isSongPlaying,  songIndex }, dispath] = useStateValue();
+    const [{allSongs, isSongPlaying,  songIndex, playlist }, dispath] = useStateValue();
+    console.log('>>>>>>>>>>>>>>>>>>, 8546',songIndex);
 
     const [isPlayList, setIsPlayList] = useState(false);
 
     const nextTrack =() => {
 
-        if (songIndex >= allSongs.length - 1) {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: 0,
-            });
-          } else {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: songIndex + 1,
-            });
-          }
+        // if (songIndex >= allSongs.length - 1) {
+        //     dispath({
+        //       type: actionType.SET_SONG_INDEX,
+        //       songIndex: 0,
+        //     });
+        //   } else {
+        //     dispath({
+        //       type: actionType.SET_SONG_INDEX,
+        //       songIndex: songIndex + 1,
+        //     });
+        //   }
+
+        if(playlist.length > 0){
+            if (songIndex >= playlist.length - 1) {
+                dispath({
+                  type: actionType.SET_SONG_INDEX,
+                  songIndex: 0,
+                });
+              } else {
+                dispath({
+                  type: actionType.SET_SONG_INDEX,
+                  songIndex: songIndex + 1,
+                });
+              }
+        }
 
     }
 
     const previousTrack =() => {
 
-        if (songIndex === 0) {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: 0,
-            });
-          } else {
-            dispath({
-              type: actionType.SET_SONG_INDEX,
-              songIndex: songIndex - 1,
-            });
-          }
+        // if (songIndex === 0) {
+        //     dispath({
+        //       type: actionType.SET_SONG_INDEX,
+        //       songIndex: 0,
+        //     });
+        //   } else {
+        //     dispath({
+        //       type: actionType.SET_SONG_INDEX,
+        //       songIndex: songIndex - 1,
+        //     });
+        //   }
         
     }
 
@@ -71,27 +86,31 @@ const MusicPlayer = () => {
   return (
     <div className='w-full flex items-center gap-3 '>
         <div className={`w-full items-center gap-3 p-4 flex relative`}>
-            <img src={allSongs[songIndex]?.imageURL} 
+            <img src={songIndex.imageURL} 
             alt='SongImage' 
             className='w-40 h-20 object-cover rounded-md' />
 
         <div className='flex items-start flex-col'>
 
+        {songIndex && songIndex.name && (
             <p className='text-xl text-headingColor font-semibold'>
-                {`${
-                    allSongs[songIndex]?.name.length > 20
-                    ? allSongs[songIndex]?.name.slice(0, 20)
-                    : allSongs[songIndex]?.name
-                }`}{" - "}
-                <span className='text-base'>{allSongs[songIndex]?.album}</span>
+                {/* {`${
+                    songIndex.name.length > 20
+                    ? songIndex.name.slice(0, 20)
+                    : songIndex.name
+                }`}{" - "} */}
+                
+                 {`${songIndex.name.length > 20 ? songIndex.name.slice(0, 20) : songIndex.name}`}{" - "}
+                <span className='text-base'>{songIndex.album}</span>
 
 
             </p>
+        )}
 
             <p className='text-textColor font-semibold text-base'>
-                {allSongs[songIndex]?.artist}{" - "}
+                {songIndex.artist}{" - "}
                 <span className='text-sm text-textColor font-normal'>
-                    {allSongs[songIndex]?.genre}
+                    {songIndex.genre}
 
                 </span>
             </p>
@@ -110,7 +129,7 @@ const MusicPlayer = () => {
 
         <div className='flex-1'>
             <AudioPlayer
-             src={allSongs[songIndex]?.songURL}
+             src={songIndex.songURL}
              onPlay={() => nowPlaying()} //add a alert for now playing
              autoPlay={true} //make true
              showSkipControls={true}
@@ -143,7 +162,7 @@ const MusicPlayer = () => {
 }
 
 export const PlaylistCard = () => {
-    const [{allSongs, isSongPlaying,  songIndex }, dispath] = useStateValue();
+    const [{allSongs, playlist, isSongPlaying,  songIndex }, dispath] = useStateValue();
 
     useEffect(() => {
         if(!allSongs){
@@ -159,7 +178,7 @@ export const PlaylistCard = () => {
       }, []);
 
 
-      const setCurrentPlaySong = (index) => {
+      const setCurrentPlaySong = (data) => {
         if(!isSongPlaying){
             dispath({
               type: actionType.SET_ISSONG_PLAYING,
@@ -167,11 +186,19 @@ export const PlaylistCard = () => {
             })
           }
       
-          if(songIndex !== index){
+          if(songIndex.name !== data.name ){ 
+            const currentSong = {
+              id: data._id,
+              songURL: data.songURL,
+              imageURL: data.imageURL,
+              name:data.name,
+              album: data.album,
+              artist: data.artist,
+              genre: data.genre,
+      };
             dispath({
               type: actionType.SET_SONG_INDEX,
-              songIndex: index,
-      
+              songIndex:currentSong ,
             })
           }
       };
@@ -180,8 +207,8 @@ export const PlaylistCard = () => {
 
     return(
         <div className='absolute left-4 bottom-24 gap-2 py-2 w-350 max-w-[350px] h-510 max-h-[510px] flex flex-col overflow-y-scroll rounded-md shadow-md bg-primary'>
-           {allSongs.length > 0 ?(
-            allSongs.map((music, index) =>(
+           {playlist.length > 0 ?(
+            playlist.map((music, index) =>(
                 <motion.div 
                 initial ={{opacity :0 ,translateX : -50}}
                 animate={{opacity: 1, translateX : 0 }}
@@ -189,7 +216,7 @@ export const PlaylistCard = () => {
 
                 className='group w-full p-4 hover:bg-card flex gap-3 items-center cursor-pointer bg-transparent'
 
-                onClick={() => setCurrentPlaySong(index)}
+                onClick={() => setCurrentPlaySong(music)}
                 key={index}
                 >
 

@@ -13,6 +13,8 @@ export const actionType = {
     SET_MATRIXPOINT_FILTER : "SET_MATRIXPOINT_FILTER",
     SET_ALBUM_FILTER : "SET_ALBUM_FILTER",
 
+    SET_PLAYLIST : "SET_PLAYLIST",
+
     SET_ALERT_TYPE : "SET_ALERT_TYPE",
 
     SET_ISSONG_PLAYING : "SET_ISSONG_PLAYING",
@@ -25,7 +27,8 @@ const reducer = (state, action) => {
 
     console.log(action);
     
-
+    const { songId,name, songURL, imageURL, album, artist, genre } = action; 
+    console.log("song id is ", songId);
     switch (action.type) {
         case actionType.SET_USER:
             return {
@@ -107,10 +110,37 @@ const reducer = (state, action) => {
             };
 
         case actionType.SET_SONG_INDEX:
+            //const { csongId,cname, csongURL, cimageURL, calbum, cartist, cgenre } = action; // Assuming action contains all required properties
+            const currentSong = {
+                id: songId,
+                songURL: songURL,
+                name: name,
+                imageURL: imageURL,
+                album: album,
+                artist: artist,
+                genre: genre
+            };
+            console.log("current song is ", currentSong);
             return {
                 ...state,
                 songIndex: action.songIndex,
-            };  
+            };
+
+        case actionType.SET_PLAYLIST:
+            // Assuming action contains all required properties
+            const newSong = {
+                id: songId,
+                songURL: songURL,
+                name: name,
+                imageURL: imageURL,
+                album: album,
+                artist: artist,
+                genre: genre
+            };
+            return {
+                ...state,
+                playlist: [...state.playlist, newSong],
+            };
             
         case actionType.SET_SEARCH_TERM:
             return {
