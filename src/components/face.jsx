@@ -6,11 +6,13 @@ import EmotionModal from './Utils/Tools/EmotionModal';
 import { generatePlaylist, getAllSongs } from '../api';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
+import { useNavigate } from 'react-router-dom';
 
 const Face = () => {
+  const navigate = useNavigate();
   //loadModels();
 
-  const [{allSongs}, dispatch] = useStateValue();
+  const [{allSongs, isSongPlaying}, dispatch] = useStateValue();
 
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [currentEmotion, setCurrentEmotion] = useState(null);
@@ -35,36 +37,73 @@ const Face = () => {
   };
 
   useEffect(() => {
-    if (currentEmotion) {
-      generatePlaylist(currentEmotion).then((res) => {
-        if (res) {
-          console.log(" -------000000----->",res.playlist);
-          const playlist = res.playlist;
-          if (!allSongs) {
-            getAllSongs().then((data) => {
-              dispatch({
-                type: actionType.SET_NEW_SONGS,
-                allSongs: data.data,
-              });
+    const fetchData = async () => {
+      if (currentEmotion) {
+        try {
+          const res = await generatePlaylist(currentEmotion);
+          if (res) {
+            console.log(" -------000000----->", res.playlist);
+            const playlist = res.playlist;
+  
+            const data = await getAllSongs();
+            dispatch({
+              type: actionType.SET_NEW_SONGS,
+              allSongs: data.data,
             });
-          }
-          
-          const songNames = [];
-          for (const playlistId of playlist) {
-            const matchingSong = allSongs.find(song => song._id === playlistId);
-    
-            if (matchingSong) {
-                songNames.push(matchingSong.name);
-            } else {
-                songNames.push("Unknown"); // Handle unknown song IDs
-            }
-        }
-        setPlaylistGenerated(songNames);
-        console.log(" -------000000----->",songNames);
+  
+            const songNames = [];
+            for (const playlistId of playlist) {
+              const matchingSong = data.data.find(song => song._id === playlistId);
+  
+              if (matchingSong) {
+                songNames.push(matchingSong);
+                const currentSong = {
+                  id: matchingSong._id,
+                  songURL: matchingSong.songURL,
+                  imageURL: matchingSong.imageURL,
+                  name: matchingSong.name,
+                  album: matchingSong.album,
+                  artist: matchingSong.artist,
+                  genre: matchingSong.genre,
+                };
+                dispatch({
+                  type: actionType.SET_PLAYLIST,
+                  songs: currentSong,
+                });
 
+                if (!isSongPlaying) {
+                  dispatch({
+                    type: actionType.SET_ISSONG_PLAYING,
+                    isSongPlaying: true,
+                  });
+                }
+
+                const playNowSong = songNames[0];
+                dispatch({
+                  type: actionType.SET_SONG_INDEX,
+                  songIndex: playNowSong,
+                });
+
+                setTimeout(() => {
+                  closeDialog();
+                  navigate("/library")
+                }, 10000);
+                
+              } else {
+                songNames.push("Unknown"); // Handle unknown song IDs
+              }
+            }
+            setPlaylistGenerated(songNames);
+            console.log(" -------000000 song----->", songNames);
+          }
+        } catch (error) {
+          // Handle errors here
+          console.error("Error fetching data:", error);
         }
-      });
-    }
+      }
+    };
+  
+    fetchData();
   }, [currentEmotion])
   
 

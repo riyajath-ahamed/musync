@@ -93,11 +93,12 @@ const emotionQuote = () => {
             {emotionQuote()}
           </span>{" "}
         </p>
+        <div className='bg-white rounded-xl'>
         <img
-          src="https://i.pinimg.com/originals/8d/7a/0a/8d7a0adfe5d3b0bb9b6e0825800a69a5.gif"
-          className="w-full rounded-t-xl"
+          src="https://i.pinimg.com/originals/2b/c0/4c/2bc04cb8e0d0965efff6017dc0f8a996.gif"
+          className="w-full rounded-t-xl invert"
         />
-        <p className="text-center relative bg-white rounded-b-xl pb-1 text-black">
+        <p className="text-center relative bg-white rounded-b-xl p-8 text-black">
           <span className="bg-gradient-to-r from-violet-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent font-bold">
             Crafting
           </span>{" "}
@@ -112,6 +113,7 @@ const emotionQuote = () => {
           </span>
             </span>
         </p>
+        </div>
       </div>
     </dialog>
   );
