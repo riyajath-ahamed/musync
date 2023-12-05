@@ -14,7 +14,7 @@ const Profile = () => {
             <div class="bg-white p-3 border-t-4 border-orange-400">
               <div class="image overflow-hidden">
                 <img
-                  className="h-auto w-full mx-auto rounded-full"
+                  className="h-auto w-56 mx-auto rounded-full"
                   src={user?.user?.imageURL}
                   alt="profile"
                   referrerPolicy="no-referrer"

@@ -70,12 +70,15 @@ const App = () => {
           <Route path="/library" element={<Library />} />
           <Route path="/face" element={<Face />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/userProfile" element={<Profile />} />
           <Route path="/favorite" element={<Favorites />} />
         </>
       ) : (
+        <>
         <Route path="/login" element={<Login setAuth={setAuth} />} />
+        <Route path="/signup" element={<Signup setAuth={setAuth} />} />
+        </>
+        
       )}
         </Routes>
 
