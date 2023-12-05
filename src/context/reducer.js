@@ -110,7 +110,7 @@ const reducer = (state, action) => {
             };
 
         case actionType.SET_SONG_INDEX:
-            //const { csongId,cname, csongURL, cimageURL, calbum, cartist, cgenre } = action; // Assuming action contains all required properties
+
             const currentSong = {
                 id: songId,
                 songURL: songURL,
@@ -120,7 +120,6 @@ const reducer = (state, action) => {
                 artist: artist,
                 genre: genre
             };
-            console.log("current song is ", currentSong);
             return {
                 ...state,
                 songIndex: action.songIndex,

@@ -57,7 +57,7 @@ const [{newSongs}, dispatch] = useStateValue();
 
       </div>
 
-      <footer className="footer items-center p-4 bg-orange-100 text-black">
+      <footer className="footer items-center p-4 mt-20 bg-orange-100 text-black">
   <aside className="items-center grid-flow-col">
 
     <p>Copyright © 2023 - All right reserved</p>

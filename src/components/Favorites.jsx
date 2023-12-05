@@ -10,6 +10,8 @@ import { all } from 'axios';
 
 const Favorites = () => {
     const [{user }, dispatch] = useStateValue();
+
+    
   return (
     
     <div className='w-full flex items-center justify-evenly flex-wrap'>
