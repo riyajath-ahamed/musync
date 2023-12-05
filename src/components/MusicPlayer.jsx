@@ -60,10 +60,6 @@ const MusicPlayer = () => {
               isSongPlaying: false,
             });
 
-            dispath({
-              type: actionType.SET_PLAYLIST,
-              songs:null ,
-            })
           }
     }
 

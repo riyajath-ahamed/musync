@@ -51,7 +51,7 @@ module.exports = {
         primary: "#f5f3f3",
         cardOverlay: "rgba(256,256,256,0.4)",
         darkOverlay: "rgba(0,0,0,0.5)",
-        lightOverlay: "rgba(256,256,256,0.2)",
+        lightOverlay: "rgba(256,256,256,0.6)",
         lighttextGray: "#9ca0ab",
         card: "rgba(256,256,256,0.8)",
         cartBg: "#282a2c",

@@ -305,7 +305,7 @@ export const HomeSongContainer = ({ musics }) => {
           className="relative w-40 min-w-210 px-2 py-4 cursor-pointer hover:bg-card bg-gray-100 shadow-md rounded-lg flex flex-col"
           
         >
-          <div className="absolute z-30 dropdown dropdown-bottom dropdown-end bg-gray-100 hover:bg-white rounded-xl top-1 right-1">
+          <div className="absolute z-30 dropdown dropdown-bottom dropdown-end bg-gray-100 hover:bg-white rounded-bl-xl top-1 right-1">
             <div tabIndex={0} role="button" className=" m-1 p-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="#697689" stroke-width="1.5" stroke-linecap="round"></path></svg>
             </div>
@@ -328,7 +328,7 @@ export const HomeSongContainer = ({ musics }) => {
           </div>
 
           <p className="text-base text-headingColor font-semibold my-2 hover:underline " onClick={() => addSongToContext(data)}>
-            {data.name.length > 20 ? `${data.name.slice(0, 20)}` : data.name}
+            {data.name.length > 20 ? `${data.name.slice(0, 20)} ..` : data.name}
             <span className="block text-sm text-gray-400 my-1">
               {data.artist}
             </span>

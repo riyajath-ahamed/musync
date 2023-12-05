@@ -24,7 +24,7 @@
   
   .rhap_forward-button:hover, .rhap_rewind-button:hover, .rhap_skip-button:hover, .rhap_volume-button:hover, .rhap_repeat-button:hover{
     transform: scale(1.2);
-    color : #555 !important;
+    color : #000000 !important;
   }
   
   .rhap_progress-filled{
