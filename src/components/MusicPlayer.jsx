@@ -133,7 +133,7 @@ const MusicPlayer = () => {
              volume={0.5}
              onClickNext={() =>nextTrack(songIndex.id)}
              onClickPrevious={() => previousTrack(songIndex.id)}
-
+             onEnded={() =>nextTrack(songIndex.id)}
             />
             
 
@@ -211,10 +211,12 @@ export const PlaylistCard = ({closePlaylistModal }) => {
     return(
         <div className='absolute left-4 bottom-24 gap-2 py-2 w-350 max-w-[350px] h-510 max-h-[510px] flex flex-col overflow-y-scroll rounded-md shadow-md bg-primary'>
            
-           <button className='px-3 py-1  bg-white rounded-full inline-block hover:shadow-lg' onClick={() =>closeModal()}>
+           <button className='fixed w-80 px-3 py-1 z-10 bg-white rounded-full inline-block hover:shadow-lg' onClick={() =>closeModal()}>
               <svg className='inline-block px-1' xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               Close Playlist
             </button>
+
+            <div className='mt-6'>
 
            {playlist.length > 0 ?(
             playlist.map((music, index) =>(
@@ -257,6 +259,7 @@ export const PlaylistCard = ({closePlaylistModal }) => {
             ))
            ) : 
            <></>}
+           </div>
         </div>
     )
 

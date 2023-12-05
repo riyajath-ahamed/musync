@@ -84,6 +84,18 @@ const Face = () => {
                   songIndex: playNowSong,
                 });
 
+                dispatch({
+                  type: actionType.SET_ALERT_TYPE,
+                  alertType: "success",
+                });
+
+                setTimeout(() => {
+                  dispatch({
+                    type: actionType.SET_ALERT_TYPE,
+                    alertType: null,
+                  });
+                }, 2000);
+
                 setTimeout(() => {
                   closeDialog();
                   navigate("/library")

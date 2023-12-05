@@ -76,8 +76,8 @@ const Alert = ({ type }) => {
             {tickIcon}
           </div>
 
-          <p className="text-xl font-semibold ">Data saved</p>
-          <p className="text-sm font-light"> Success Description</p>
+          <p className="text-xl font-semibold ">Added</p>
+          {/* <p className="text-sm font-light"> Success Description</p> */}
         </div>
       )}
 
@@ -93,7 +93,7 @@ const Alert = ({ type }) => {
             Somting went wrong..
           </p>
 
-          <p className="text-sm font-light"> error descriptin</p>
+          {/* <p className="text-sm font-light"> error descriptin</p> */}
         </div>
       )}
 
@@ -105,8 +105,8 @@ const Alert = ({ type }) => {
             {warningicon}
           </div>
 
-          <p className="text-xl font-semibold ">Waring with some errors</p>
-          <p className="text-sm font-light"> Warning Description</p>
+          <p className="text-xl font-semibold ">Warning with some errors</p>
+          {/* <p className="text-sm font-light"> Warning Description</p> */}
         </div>
       )}
     </motion.div>
