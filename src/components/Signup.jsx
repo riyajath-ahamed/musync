@@ -43,7 +43,7 @@ const Signup = () => {
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error('Registration failed:', errorCode, errorMessage);
+      alert('Registration failed', errorMessage);
       setErrorMessage(errorMessage);
     }
   };
@@ -137,7 +137,7 @@ const Signup = () => {
             </div>
             <div class="relative">
               <a class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-600
-                  rounded-lg transition duration-200 hover:bg-indigo-600 ease" onClick={() => register()}>Submit</a>
+                  rounded-lg transition duration-200 hover:bg-indigo-600 ease hover:cursor-pointer" onClick={() => register()}>Submit</a>
             </div>
             <p className="font-medium text-white w-full text-center cursor-pointer bg-indigo-300 p-2 rounded-lg "><NavLink to={"/login"}>Have an Account</NavLink></p>
           </div>

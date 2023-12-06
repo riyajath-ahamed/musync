@@ -15,6 +15,8 @@ export const DashboardUserCard =({data, index}) =>{
 
   const [isUserRoleUpdated, setIsUserRoleUpdated] = useState(false); 
 
+  const [isUserDeleted, setIsUserDeleted] = useState(false);
+
   
   
 
@@ -38,7 +40,11 @@ export const DashboardUserCard =({data, index}) =>{
 
   }
 
+
   const deleteUser = (userId) => {
+
+    setIsUserDeleted(false)
+
     removeUser(userId).then((res) => {
       if(res){
         getAllUsers().then((data) =>
@@ -68,7 +74,7 @@ export const DashboardUserCard =({data, index}) =>{
         {
           data._id !== user?.user._id && (
             <motion.div whileTap={{scale : 0.75}} className="absolute left-4 w-8 h-8 rounded-md flex items-center justify-center bg-gray-200"
-              onClick={() => deleteUser(data._id)}
+              onClick={() => setIsUserDeleted(true)}
             >
               <MdDelete className='text-xl text-red-500 hover:text-red-700'/>
 
@@ -76,6 +82,33 @@ export const DashboardUserCard =({data, index}) =>{
 
           )
         }
+
+          {isUserDeleted &&(
+            <motion.div 
+            initial={{opacity:0, scale:0.5}}
+            animate={{opacity:1, scale:1}}
+            exit={{opacity:0, scale:0.5}}
+            
+            className='absolute z-40 top-6 left-4 p-4 flex items-start flex-col gap-4 bg-white shadow-xl rounded-md'>
+            <p className='text-textColor text-sm font-semibold'>Are you sure, Do you want to delete User 
+            <span className='font-bold text-red-600'>  {data.name}</span> ?
+            </p>
+            <div className='flex items-center gap-8'>
+              <motion.button whileTap={{scale:0.75}} className="outline-none border-none text-sm px-4 py-1 rounded-md bg-blue-700 text-white hover:shadow-md"
+              onClick={() => deleteUser(data._id)}
+              >
+                Yes
+              </motion.button>
+              <motion.button whileTap={{scale:0.75}} className="outline-none border-none text-sm px-4 py-1 rounded-md bg-red-600 text-white hover:shadow-md"
+               onClick={() => setIsUserDeleted(false)} 
+              >
+                No
+              </motion.button>
+
+            </div>
+
+          </motion.div>
+          )}
         
         {/* profile*/}
         <div className='w-275 min-w-[160px] flex items-center justify-center'>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer, Library, Profile, Favorites } from "./components";
+import { Dashboard, Home, Login, Premium, Face, Signup, AboutUs, MusicPlayer, Library, Profile, Favorites, Alert } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
 
@@ -13,7 +13,7 @@ const App = () => {
   const firbaseAuth = getAuth(app);
   const navigate = useNavigate();
 
-  const [{user, isSongPlaying}, dispatch] = useStateValue();
+  const [{user, isSongPlaying, alertType}, dispatch] = useStateValue();
 
   const [auth, setAuth] = useState(
     false || window.localStorage.getItem("auth") === "true"
@@ -92,6 +92,7 @@ const App = () => {
           </motion.div>
         )}
       </div>
+      {alertType && <Alert type={alertType}/>}
     </AnimatePresence>
   );
 };
